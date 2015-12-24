@@ -64,7 +64,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _reactDom.render)(_react2.default.createElement(_reactRouter.Router, { routes: _routes2.default, history: (0, _createBrowserHistory2.default)() }), document.getElementById('app'));
+	(0, _reactDom.render)(_react2.default.createElement(_reactRouter.Router, {
+	  onUpdate: function onUpdate() {
+	    return window.scrollTo(0, 0);
+	  },
+	  routes: _routes2.default,
+	  history: (0, _createBrowserHistory2.default)()
+	}), document.getElementById('app'));
 
 /***/ },
 /* 1 */
