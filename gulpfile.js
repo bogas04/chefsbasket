@@ -12,18 +12,14 @@ const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', cb => {
   runSequence(
-    ['stylus', 'react-es6-dev']
+    ['stylus', 'react-es2015-dev']
   );
 });
 gulp.task('production', cb => {
   runSequence(
-    ['stylus', 'react-es6']
+    ['stylus', 'react-es2015']
   );
 });
-
-gulp.task('start-server', shell.task([
-  'babel-node server --presets es2015',
-]));
 
 gulp.watch('styl/main.styl', ['stylus']);
 
@@ -39,11 +35,40 @@ gulp.task('stylus', cb => {
 });
 
 
-gulp.task('react-es6', cb => {
+gulp.task('react-es2015', cb => {
+  return gulp.src('components/index.js')
+  .pipe(webpackStream(webpackConfigProd))
+  .pipe(gulp.dest('client/js/'));
+});
+
+gulp.task('react-es2015-dev', cb => {
   return gulp.src('components/index.js')
   .pipe(plumber())
-  .pipe(Object.assign(webpackStream(webpackConfig), {
-    plugins: [
+  .pipe(webpackStream(webpackConfig))
+  .pipe(gulp.dest('client/js/'));
+});
+
+const webpackConfig = {
+  module: {
+    loaders: [
+      { 
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+        include: /components/,
+        query: {
+          presets: ['react', 'es2015'],
+        }
+      }
+    ]
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+  watch: true,
+};
+const webpackConfigProd = {
+  plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
@@ -51,18 +76,7 @@ gulp.task('react-es6', cb => {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-  ]}))
-  .pipe(gulp.dest('client/js/'));
-});
-
-gulp.task('react-es6-dev', cb => {
-  return gulp.src('components/index.js')
-  .pipe(plumber())
-  .pipe(webpackStream(Object.assign(webpackConfig, { watch: true })))
-  .pipe(gulp.dest('client/js/'));
-});
-
-const webpackConfig = {
+  ],
   module: {
     loaders: [
       { 
