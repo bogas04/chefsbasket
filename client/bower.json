@@ -1,0 +1,23 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/bogas04/chefbasket-react",
+  "authors": [
+    "Divjot Singh <bogas04@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.6"
+  }
+}

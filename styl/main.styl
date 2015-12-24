@@ -1,0 +1,97 @@
+@font-face { font-family: quicksand; src: url('../fonts/Quicksand-Regular.otf'); }
+@font-face { font-family: chardons; src: url('../fonts/Chardons.ttf'); }
+
+$white = #FAFAFA
+$black = #252525
+
+body
+  background-color: $white;
+  font-family: quicksand;
+
+#navbar-wrapper
+  .upper-header
+    padding-top: 20px;
+  .header-clearer
+    margin-top: 160px;
+  .navbar-brand
+    display: none;
+    img
+      height: 240%;
+      margin-top: -20%;
+  nav
+    background-color: $white;
+    font-family: quicksand;
+    font-weight: 100;
+  .nav
+    li
+      a:hover
+        background-color: inherit !important;
+  #navbar
+    ul
+      width: 100%;
+      li
+        text-transform: uppercase;
+        width: 16%; 
+        text-align: center;
+        margin-bottom: 4px;
+      li:hover
+        border-bottom: 5px solid $black;
+        margin-bottom: -4px;
+
+#navbar-wrapper.shrink
+  .upper-header
+    display: none;
+
+.content
+  min-height: 500px;
+
+.black-placeholder::placeholder
+  color: $black;
+
+.white-placeholder::placeholder
+  color: $white;
+
+
+/* Bootstrap Fixes */
+input.form-control, .input-group-addon
+  border: 2px solid $black;
+  border-radius: 0px;
+  background-color: white;
+  color: $black;
+.btn
+  height: 39px;
+  background-color: $black;
+  border-radius: 0;
+  border: 2px solid $black;
+
+/* IMAGE WRAPPER */
+
+.image-wrapper
+  overflow: hidden;
+  height: 350px;
+  width: 100%;
+  padding: 0;
+  img
+    width: 100%;
+    transition: all 0.1s linear;
+
+.image-wrapper:hover img
+  transform: scale(1.1);
+
+/* Media Queries */
+
+@media (min-width:992px)
+  #navbar-wrapper
+    .upper-header
+      form
+        width: 250px;
+        float: right;
+        transition: width 0.1s linear;
+
+@media (max-width:768px)
+  #navbar-wrapper.shrink .navbar-brand
+    display: block;
+
+@media (max-width:992px)
+  #navbar-wrapper .header-clearer
+    margin-top: 310px;
