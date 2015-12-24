@@ -52,7 +52,7 @@ gulp.task('react-es6', cb => {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
   ]}))
-  .pipe(gulp.dest('client/'));
+  .pipe(gulp.dest('client/js/'));
 });
 
 gulp.task('react-es6-dev', cb => {
