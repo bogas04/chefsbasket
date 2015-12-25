@@ -27,7 +27,7 @@ gulp.watch('styl/main.styl', ['stylus']);
 
 gulp.task('bower', cb => {
   return bower({ cwd: './client' })
-  .pipe(gulp.dest('./client/'));
+  .pipe(gulp.dest('./client/components/'));
 });
 
 gulp.task('stylus', cb => {
