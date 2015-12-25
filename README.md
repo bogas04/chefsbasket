@@ -1,16 +1,9 @@
 # Chef's Basket
 The website is built using React, Express, Stylus, Bootstrap and several other technologies.
 
-# Build
-```bash
-npm i;
-cd client;
-bower install;
-```
-
 # Usage
 ```bash
-# This will start the server and webpack the /components
+# This will build all files (`bower install`, `stylus` -> `css`, `/components` -> `bundle.js`) and start the server
 npm start
 # Now visit http://127.0.0.1:8080
 ```
