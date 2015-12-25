@@ -26,5 +26,5 @@ app.get('*', (req, res, next) => {
 });
 
 var server = app.listen(process.env.PORT || 8080, () => {
-  console.log('Server running on ' + server.address().address + ':' + server.address().port);
+  console.log('Server running on host ' + ':' + server.address().port);
 });

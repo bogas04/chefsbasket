@@ -4,6 +4,7 @@ const gulp = require('gulp');
 const webpack = require('webpack');
 const shell = require('gulp-shell');
 const stylus = require('gulp-stylus');
+const bower = require('gulp-bower');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const runSequence = require('run-sequence');
@@ -12,16 +13,22 @@ const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', cb => {
   runSequence(
+    'bower',
     ['stylus', 'react-es2015-dev']
   );
 });
 gulp.task('production', cb => {
   runSequence(
-    ['stylus', 'react-es2015']
+    ['bower', 'stylus', 'react-es2015']
   );
 });
 
 gulp.watch('styl/main.styl', ['stylus']);
+
+gulp.task('bower', cb => {
+  return bower({ cwd: './client' })
+  .pipe(gulp.dest('./client/'));
+});
 
 gulp.task('stylus', cb => {
   return gulp.src('styl/main.styl')
