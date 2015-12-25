@@ -8,3 +8,6 @@ npm-debug.log
 */.DS_STORE
 client/components
 client/components/*
+client/js/bundle.js
+client/css/main.css
+
