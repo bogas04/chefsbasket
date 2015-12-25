@@ -4,9 +4,15 @@ import CardList from '../CardList';
 export default class Recipes extends React.Component {
   render() {
     return (
-      <div className="container content">
-        <h1> Recipes stuff </h1>
-        {this.props.children || <CardList />}
+      <div>
+        {
+          this.props.children || (
+            <div className="container content">
+              <h1> Recipes stuff </h1>
+              <CardList />
+            </div>
+            )
+        }
       </div>
     );
   }

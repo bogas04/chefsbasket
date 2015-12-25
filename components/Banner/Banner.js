@@ -27,13 +27,12 @@ export default class Banner extends React.Component {
         <div className="container">
           <div className="col-md-offset-8 col-md-4" style={style.textWrapper}>
             <div style={style.text}>
-              <h2>Welcome to Chef's Basket</h2>
-              <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-              <p><button className="btn btn-default">Learn more</button></p>
+              <h2>{this.props.title}</h2>
+              <p>{this.props.children}</p>
             </div>
           </div>
         </div>
       </div>
-      );
-      }
-      }
+    );
+  }
+}
