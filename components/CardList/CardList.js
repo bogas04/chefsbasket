@@ -63,67 +63,29 @@ export class Card extends React.Component {
 }
 
 export default class CardList extends React.Component {
+  constructor (p) {
+    super(p);
+    this.state = { cardData: [] };
+  }
+  componentDidMount() {
+    $.getJSON(this.props.dataSource, e => {
+      this.setState({
+        cardData: e
+      });
+    });
+  }
   render() {
-
-    let callToActions = [
-      { action: e => console.log('doing stuff about it', e), 
-        text: 'Tweet It', glyphicon: 'retweet', className: 'btn btn-info'},
-        { action: e => console.log('doing stuff about it', e), 
-          text: 'Share on Facebook', glyphicon: 'share-alt', className: 'btn btn-primary'},
-          { action: e => console.log('doing stuff about it', e),
-            text: 'Pin It', glyphicon: 'pushpin', className: 'btn btn-danger'},
-    ];
-
-    let cards = [
-      {
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        title: "The biggest question we have after seeing 'Star Wars'",
-        content: `Warning: If you haven't seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...`
-      },
-      {
-        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-      },
-      {
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        title: "The biggest question we have after seeing 'Star Wars'",
-        content: `Warning: If you haven't seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...`
-      },
-      {
-        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-      },
-      {
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        title: "The biggest question we have after seeing 'Star Wars'",
-        content: `Warning: If you haven't seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...`
-      },
-      {
-        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-      },
-      {
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-        title: "The biggest question we have after seeing 'Star Wars'",
-        content: `Warning: If you haven't seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...`
-      },
-      {
-        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-      },
-    ].map(e => <Card image={e.image} url={e.url} title={e.title} callToActions={callToActions} key={e.title + Math.random()}>{e.content}</Card>);
+    let callToActions = this.props.callToActions;
+    let cards = this.state.cardData.map(e => (
+      <Card
+        image={e.image}
+        url={e.url}
+        title={e.title}
+        callToActions={callToActions}
+        key={e.title + Math.random()}>
+        {e.content}
+      </Card>
+    ));
 
     return (<div className='container'>{cards}</div>);
   }

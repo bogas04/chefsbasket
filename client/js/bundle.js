@@ -24822,7 +24822,11 @@
 	        _react2.default.createElement(
 	          _Banner2.default,
 	          { title: 'Welcome to Chef\'s Basket' },
-	          'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.',
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.'
+	          ),
 	          _react2.default.createElement(
 	            'p',
 	            null,
@@ -24891,20 +24895,18 @@
 	        mainWrapper: {
 	          background: 'url(\'/img/banner.jpg\') no-repeat center center fixed',
 	          backgroundSize: 'cover',
-	          //boxShadow: '0 -20px 200px 10px #252525 inset',
 	          color: 'white',
 	          height: '64vh',
 	          minHeight: '500px'
 	        },
 	        textWrapper: {
 	          backgroundColor: 'white',
-	          color: '#252525'
+	          color: '#252525',
+	          padding: '10px'
 	        },
 	        text: {
-	          margin: '15px 0',
 	          border: '2px solid #252525',
-	          textAlign: 'center',
-	          padding: '10px'
+	          textAlign: 'center'
 	        }
 	      };
 	      return _react2.default.createElement(
@@ -24924,11 +24926,7 @@
 	                null,
 	                this.props.title
 	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                this.props.children
-	              )
+	              this.props.children
 	            )
 	          )
 	        )
@@ -25061,71 +25059,39 @@
 	var CardList = (function (_React$Component2) {
 	  _inherits(CardList, _React$Component2);
 
-	  function CardList() {
+	  function CardList(p) {
 	    _classCallCheck(this, CardList);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CardList).apply(this, arguments));
+	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(CardList).call(this, p));
+
+	    _this3.state = { cardData: [] };
+	    return _this3;
 	  }
 
 	  _createClass(CardList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this4 = this;
+
+	      $.getJSON(this.props.dataSource, function (e) {
+	        _this4.setState({
+	          cardData: e
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      var callToActions = [{ action: function action(e) {
-	          return console.log('doing stuff about it', e);
-	        },
-	        text: 'Tweet It', glyphicon: 'retweet', className: 'btn btn-info' }, { action: function action(e) {
-	          return console.log('doing stuff about it', e);
-	        },
-	        text: 'Share on Facebook', glyphicon: 'share-alt', className: 'btn btn-primary' }, { action: function action(e) {
-	          return console.log('doing stuff about it', e);
-	        },
-	        text: 'Pin It', glyphicon: 'pushpin', className: 'btn btn-danger' }];
-
-	      var cards = [{
-	        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        title: "The biggest question we have after seeing 'Star Wars'",
-	        content: 'Warning: If you haven\'t seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...'
-	      }, {
-	        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-	        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-	      }, {
-	        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        title: "The biggest question we have after seeing 'Star Wars'",
-	        content: 'Warning: If you haven\'t seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...'
-	      }, {
-	        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-	        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-	      }, {
-	        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        title: "The biggest question we have after seeing 'Star Wars'",
-	        content: 'Warning: If you haven\'t seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...'
-	      }, {
-	        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-	        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-	      }, {
-	        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2000px-Star_Wars_Logo.svg.png",
-	        title: "The biggest question we have after seeing 'Star Wars'",
-	        content: 'Warning: If you haven\'t seen "Star Wars: The Force Awakens" there are spoilers ahead. We have a lot of questions after seeing "Star Wars: The ...'
-	      }, {
-	        image: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        url: "http://www.hindustantimes.com/rf/image_size_640x362/HT/p2/2015/12/18/Pictures/_3ef19232-a547-11e5-a915-4cd4d91edd66.jpg",
-	        title: "Dilwale quick take: Shah Rukh Khan, Kajol are explosive together",
-	        content: 'Dilwale brings Shah Rukh Khan and Kajol together after six years. Varun Dhawan and Kriti Sanon make the other pair in the Rohit Shetty film. (Red Chillies)'
-	      }].map(function (e) {
+	      var callToActions = this.props.callToActions;
+	      var cards = this.state.cardData.map(function (e) {
 	        return _react2.default.createElement(
 	          Card,
-	          { image: e.image, url: e.url, title: e.title, callToActions: callToActions, key: e.title + Math.random() },
+	          {
+	            image: e.image,
+	            url: e.url,
+	            title: e.title,
+	            callToActions: callToActions,
+	            key: e.title + Math.random() },
 	          e.content
 	        );
 	      });
@@ -25697,7 +25663,16 @@
 	            null,
 	            ' Recipes stuff '
 	          ),
-	          _react2.default.createElement(_CardList2.default, null)
+	          _react2.default.createElement(_CardList2.default, { dataSource: '/data/cardlist.json', callToActions: [{ action: function action(e) {
+	                return console.log('doing stuff about it', e);
+	              },
+	              text: 'Tweet It', glyphicon: 'retweet', className: 'btn btn-info' }, { action: function action(e) {
+	                return console.log('doing stuff about it', e);
+	              },
+	              text: 'Share on Facebook', glyphicon: 'share-alt', className: 'btn btn-primary' }, { action: function action(e) {
+	                return console.log('doing stuff about it', e);
+	              },
+	              text: 'Pin It', glyphicon: 'pushpin', className: 'btn btn-danger' }] })
 	        )
 	      );
 	    }
@@ -25754,7 +25729,11 @@
 	        _react2.default.createElement(
 	          _Banner2.default,
 	          { title: this.props.params.recipeId },
-	          'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.',
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.'
+	          ),
 	          _react2.default.createElement(
 	            'h3',
 	            { style: { fontWeight: 100 } },
@@ -26084,7 +26063,7 @@
 	            query.q
 	          )
 	        ),
-	        _react2.default.createElement(_CardList2.default, null)
+	        _react2.default.createElement(_CardList2.default, { dataSource: '/data/cardlist.json', callToActions: [] })
 	      );
 	    }
 	  }]);

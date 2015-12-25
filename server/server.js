@@ -7,7 +7,8 @@ import { match, RoutingContext } from 'react-router';
 const app = express();
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + '/../client'));
+app.use('/data', express.static(__dirname + '/../data'));
+app.use('/', express.static(__dirname + '/../client'));
 
 // Redirect to this on /track?source=google_ad -> http://www.amazon.in/gp/feature.html/?ie=UTF8&docId=1000846393
 app.get('*', (req, res, next) => {

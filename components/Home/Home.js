@@ -9,7 +9,7 @@ export default class Home extends React.Component {
     return (
       <div>
         <Banner title={`Welcome to Chef's Basket`} >
-          This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+          <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
           <p><button className="btn btn-default" onClick={() => alert(`You've learnt now`)}>Learn More</button></p>
         </Banner>
         <WouldYouCook />
