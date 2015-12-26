@@ -3,7 +3,7 @@ import React from 'react';
 export default class Footer extends React.Component {
   render() {
     return (
-      <div className="container-fluid footer">
+      <footer className="container-fluid footer">
         <div style={{marginBottom: '20px'}}>
           <img src="/img/logo_white_hor.png" alt="Chef's Basket Logo" />
         </div>
@@ -28,7 +28,7 @@ export default class Footer extends React.Component {
             <li>YouTube</li>
           </ul>
         </div>
-      </div>
+      </footer>
     );
   }
 }
