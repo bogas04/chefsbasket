@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from '../Banner';
+import Related from '../Related';
 
 export default class Recipe extends React.Component {
   render() {
@@ -51,6 +52,7 @@ export default class Recipe extends React.Component {
             <p> When the shortbread is ready, take it out of the oven and carefully pour the lemon curd onto the shortbread base; return the pan to the oven. Bake until topping is just set, 10 to 15 minutes more. Allow to cool to room temperature, then refrigerate until cold before cutting into bars. Sprinkle with confectioners’ sugar and flaky sea salt right before serving.  </p>
           </div>
         </div>
+        <Related forRecipeId={this.props.params.recipeId}/>
       </div>
     );
   }

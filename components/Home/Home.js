@@ -1,4 +1,5 @@
 import React from 'react';
+import Hr from '../Hr';
 import Banner from '../Banner';
 import CardList from '../CardList';
 import WouldYouCook from '../WouldYouCook';
@@ -13,7 +14,7 @@ export default class Home extends React.Component {
           <p><button className="btn btn-default" onClick={() => alert(`You've learnt now`)}>Learn More</button></p>
         </Banner>
         <WouldYouCook />
-        <div className="container"><hr style={{color: '#B4B4B4'}}/></div>
+        <Hr />
         <TrendingTopics />
       </div>
     );

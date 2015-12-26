@@ -3,7 +3,7 @@ import React from 'react';
 export default class Footer extends React.Component {
   render() {
     return (
-      <div className="container-fluid" style={{backgroundColor: '#252525', padding: '20px', color: '#fafafa'}}>
+      <div className="container-fluid footer">
         <div style={{marginBottom: '20px'}}>
           <img src="/img/logo_white_hor.png" alt="Chef's Basket Logo" />
         </div>

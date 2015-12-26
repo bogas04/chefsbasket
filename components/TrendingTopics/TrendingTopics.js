@@ -5,9 +5,7 @@ class Topic extends React.Component {
     return (
       <div>
         <a href={this.props.url}>
-          <div className="image-wrapper">
-            <img src={this.props.image} alt={this.props.children} />
-          </div>
+          <ImageWrapper src={this.props.image} alt={this.props.children} />
           <h2 style={{fontWeight: '100', textAlign: 'center'}}>{this.props.children}</h2>
         </a>
         <div>
