@@ -6,7 +6,7 @@ export default class Recipe extends React.Component {
   render() {
     return (
       <div>
-        <Banner title={this.props.params.recipeId} >
+        <Banner title={this.props.params.recipeId} image={(parseInt(Math.random() * 100)) %2 === 0 ? "/img/pizza.jpg" : "/img/waffle.jpg"}>
           <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
           <h3 style={{fontWeight: 100}}> Difficulty: Easy </h3>
           <h4 style={{fontWeight: 100}}> Serves: 3 </h4>

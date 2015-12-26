@@ -4,7 +4,7 @@ export default class Banner extends React.Component {
   render() {
     let style = {
       mainWrapper: {
-        background: `url('/img/banner.jpg') no-repeat center center fixed`,
+        background: `url('${this.props.image}') no-repeat center center fixed`,
         backgroundSize: `cover`,
         color: 'white',
         height: '64vh',
