@@ -1,4 +1,5 @@
 import React from 'react';
+import ImageWrapper from '../ImageWrapper';
 
 class Topic extends React.Component {
   render() {
