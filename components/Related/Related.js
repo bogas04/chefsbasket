@@ -14,7 +14,7 @@ export default class Related extends React.Component {
     this.getTopics(arr => this.setState({
       related: arr.map(e => (
         <div className="col-md-4" key={e.recipeId} >
-          <Link to={`/recipes/${e.recipeId}`}>
+          <Link to={`/recipes/${e.recipeId}`} style={{textDecoration: 'none'}}>
             <ImageWrapper src={e.image} alt={e.title} height='260px' />
             <h2 style={{fontWeight: 100, textAlign: 'center'}} >{e.title}</h2>
             <h4 style={{fontWeight: 100, textAlign: 'center'}} >{e.author}</h4>

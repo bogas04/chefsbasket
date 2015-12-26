@@ -6,7 +6,7 @@ class Topic extends React.Component {
   render() {
     return (
       <div>
-        <Link to={this.props.url}>
+        <Link to={this.props.url} style={{textDecoration: 'none'}}>
           <ImageWrapper src={this.props.image} alt={this.props.children} />
           <h2 style={{fontWeight: '100', textAlign: 'center'}}>{this.props.children}</h2>
         </Link>
