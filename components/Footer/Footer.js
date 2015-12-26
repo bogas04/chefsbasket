@@ -5,7 +5,7 @@ export default class Footer extends React.Component {
     return (
       <div className="container-fluid" style={{backgroundColor: '#252525', padding: '20px', color: '#fafafa'}}>
         <div style={{marginBottom: '20px'}}>
-          <img src="img/logo_white_hor.png" alt="Chef's Basket Logo" />
+          <img src="/img/logo_white_hor.png" alt="Chef's Basket Logo" />
         </div>
         <div className="col-md-4">
           <div> &copy;  {new Date().getFullYear()} Chef's Basket </div>
