@@ -4,6 +4,20 @@
 $white = #FAFAFA
 $black = #252525
 
+/* Page transition Animation */
+.example-enter
+  opacity: 0;
+  transition: opacity .5s ease-in;
+
+.example-enter.example-enter-active
+  opacity: 1;
+
+.example-leave
+  display: none;
+
+.example-leave.example-leave-active
+  display: none;
+
 body
   background-color: $white;
   font-family: quicksand;
