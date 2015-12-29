@@ -64,7 +64,7 @@ gulp.task('stylus', cb => {
 
 gulp.task('react-es2015', cb => {
   return gulp.src('components/index.js')
-  .pipe(webpackStream(Object.assign( webapckConfig, {
+  .pipe(webpackStream(Object.assign( webpackConfig, {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
