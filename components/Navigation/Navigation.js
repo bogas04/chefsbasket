@@ -23,7 +23,7 @@ export default class Navigation extends React.Component {
             <Link to={`/`}><img src="/img/logo_black.png" /></Link>
           </div>
           <div className="col-md-4" style={{paddingTop: '40px' }}>
-            <form action="search">
+            <form action="/search">
               <div className="input-group">
                 <input
                   style={{backgroundColor: '#FAFAFA'}}

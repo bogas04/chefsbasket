@@ -1,9 +1,10 @@
 import React from 'react';
+import Content from '../Content';
 
 export default class Login extends React.Component {
   render() {
     return (
-      <div className="container content">
+      <Content>
         <h1> Login </h1>
         <form className="form">
           <div className="form-group">
@@ -16,7 +17,7 @@ export default class Login extends React.Component {
           </div>
           <button className="btn btn-primary">Login</button>
         </form>
-      </div>
+      </Content>
     );
   }
 }

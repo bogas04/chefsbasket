@@ -1,14 +1,19 @@
 import React from 'react';
 import CardList from '../CardList';
+import Content from '../Content';
 
 export default class Search extends React.Component {
   render() {
     let { query } = this.props.location;
     return (
-      <div className="container content">
+      <Content>
         <h1> Showing results for <code>{query.q}</code></h1>
-        <CardList dataSource="/data/cardlist.json" callToActions={[]} />
-      </div>
+        <CardList dataSource={
+          query.tag ? 
+            `articles.json?tag=${query.tag}` :
+              `/articles.json?q=${query.q}`
+        } />
+    </Content>
     );
   }
 }

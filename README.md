@@ -10,11 +10,11 @@ npm start
 
 # Todo
 * [ ] Build tracking services
-* [ ] Create admin panel to update data/add new entries
-* [ ] Build up log-in system (username pass, fb, tw, google)
-* [ ] Use some database to store dynamic data (Postgres using Massive?)
-* [ ] Use some file system for assets of dynamic data
 * [ ] Implement all the layouts
 * [ ] Make all components use data given from props
+* [ ] Use some file system for assets of dynamic data
+* [ ] Use some database to store dynamic data (Postgres using Massive?)
+* [ ] Build up log-in system (username pass, fb, tw, google)
+* [ ] Create admin panel to update data/add new entries
 * [x] Figure out server rendering using `react-dom/server`
 * [x] Use stylus using webpack (cleaner code, auto-prefix loaders etc can save dev time)

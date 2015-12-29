@@ -27,16 +27,35 @@ class Topic extends React.Component {
 }
 
 export default class TrendingTopics extends React.Component {
+  constructor(p) {
+    super(p);
+    this.state = { topics: [] };
+  }
+  componentDidMount() {
+    $.getJSON('/articles.json?trending=1', data => {
+      this.setState({ topics: data.data.slice(0, 2) });
+    });
+  }
   render() {
     return (
       <div className="container">
         <h1 style={{fontFamily: 'chardons', fontWeight: '100', textAlign: 'center', marginBottom: '20px'}}>Trending Topics</h1>
-        <div className="col-md-6">
-          <Topic image="/img/pizza.jpg" author="John Doe" url="/recipes/Delicious Stuff" likes="52" date="2 weeks ago">Are These The Best Pizzas Ever?</Topic>
-        </div>
-        <div className="col-md-6">
-          <Topic image="/img/waffle.jpg" author="Jane Doe" url="/recipes/Stuff" likes="12" date="4 days ago">The Ultimate Christmas Dessert Showdown</Topic>
-        </div>
+        {
+          this.state.topics.map(t => (
+            <div className="col-md-6">
+              <Topic 
+                key={t.slug}
+                image={t.header.image}
+                author={t.author.name}
+                url={`/${t.category}/${t.slug}`}
+                likes={t.likes}
+                date={t.timestamp}
+                >
+                {t.title}
+              </Topic>
+            </div>
+            ))
+        }
       </div>
     );
   }

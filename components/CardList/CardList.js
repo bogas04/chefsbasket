@@ -1,16 +1,15 @@
 'use strict';
 
 import React from 'react';
+import TrendingTopics from '../TrendingTopics';
 
 export class Card extends React.Component {
   constructor(props) {
     super(props);
     this.styles = {
       wrapper: {
-        borderRadius: '7px',
         height: this.props.height || '413px',
         width: this.props.width || '385px',
-        border: '1px solid grey',
         margin: '5px',
         overflow: 'auto',
         float: 'left',
@@ -19,16 +18,11 @@ export class Card extends React.Component {
         fontSize: '120%',
         color: 'grey',
         padding: '5px',
+        textAlign: 'center',
       },
       description: {
         padding: '5px',
         height: '90px',
-      },
-      callToActions: {
-        textAlign: 'center',
-      },
-      callToAction: {
-        borderRadius: 0,
       },
       imageWrapper: {
         height: '200px',
@@ -40,11 +34,6 @@ export class Card extends React.Component {
     };
   }
   render() {
-    let callToActions = this.props.callToActions.map(e => (
-      <button className={e.className} style={this.styles.callToAction} onClick={e.action} key={e.text}>
-        <span className={"glyphicon glyphicon-"+e.glyphicon}></span> {e.text}
-      </button>
-    ));
     return (
       <div style={this.styles.wrapper}>
         <a href={this.props.url}>
@@ -54,9 +43,6 @@ export class Card extends React.Component {
           <p style={this.styles.title}>{this.props.title}</p>
         </a>
         <p style={this.styles.description}>{this.props.children}</p>
-        <div style={this.styles.callToActions}>
-          {callToActions}
-        </div>
       </div>
     )
   }
@@ -70,22 +56,20 @@ export default class CardList extends React.Component {
   componentDidMount() {
     $.getJSON(this.props.dataSource, e => {
       this.setState({
-        cardData: e
+        cardData: e.data
       });
     });
   }
   render() {
-    let callToActions = this.props.callToActions;
-    let cards = this.state.cardData.map(e => (
+    let cards = this.state.cardData.length > 0 ? this.state.cardData.map(e => (
       <Card
-        image={e.image}
-        url={e.url}
+        image={e.header.image}
+        url={`/${e.category}/${e.slug}`}
         title={e.title}
-        callToActions={callToActions}
         key={e.title + Math.random()}>
-        {e.content}
+        {e.header.summary}
       </Card>
-    ));
+    )) : (<div> <h2> No posts to show :( Browse through trending topics </h2> <TrendingTopics /> </div>);
 
     return (<div className='container'>{cards}</div>);
   }
