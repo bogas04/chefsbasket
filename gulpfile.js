@@ -11,6 +11,25 @@ const runSequence = require('run-sequence');
 const webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
+let webpackConfig = {
+  module: {
+    loaders: [
+      { 
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules|bower_components)/,
+        include: /components/,
+        query: {
+          presets: ['react', 'es2015'],
+        }
+      }
+    ]
+  },
+  output: {
+    filename: 'bundle.js'
+  },
+};
+
 gulp.task('default', cb => {
   runSequence(
     'bower',
@@ -66,21 +85,3 @@ gulp.task('react-es2015-dev', cb => {
   .pipe(gulp.dest('client/js/'));
 });
 
-let webpackConfig = {
-  module: {
-    loaders: [
-      { 
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules|bower_components)/,
-        include: /components/,
-        query: {
-          presets: ['react', 'es2015'],
-        }
-      }
-    ]
-  },
-  output: {
-    filename: 'bundle.js'
-  },
-};
