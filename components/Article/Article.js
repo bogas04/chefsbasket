@@ -16,8 +16,14 @@ export default class Article extends React.Component {
       <div>
         <Banner title={data.header.title} image={data.header.image} >
           <p>{data.header.summary}</p>
-          <h3 style={{fontWeight: 100}}> Difficulty: {data.difficulty} </h3>
-          <h4 style={{fontWeight: 100}}> Serves: {data.serves} </h4>
+          {
+            layout === 'recipes' && (
+              <div>
+                <h3 style={{fontWeight: 100}}> Difficulty: {data.difficulty} </h3>
+                <h4 style={{fontWeight: 100}}> Serves: {data.serves} </h4>
+              </div>
+              )
+          }
         </Banner>
         { 
           layout === 'recipes' ? (
