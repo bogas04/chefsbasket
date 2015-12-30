@@ -7,7 +7,18 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Navigation />
+        <Navigation
+          loggedIn={false}
+          hideSearch={false}
+          routes={[
+            {url:`/recipes`, title: `Recipes`},
+            {url:`/ingredients`, title: `Ingredients`},
+            {url:`/recipekit`, title: `Recipe Kit`},
+            {url:`/travel`, title: `Travel`},
+            {url:`/entertainment`, title: `Entertainment`},
+            {url:`/people`, title: `People`},
+          ]}
+        />
         {this.props.children}
         <Subscribe />
         <Footer />

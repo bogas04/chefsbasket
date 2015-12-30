@@ -8,7 +8,7 @@ body
   background-color: $white;
   font-family: quicksand;
 
-#navbar-wrapper
+.navbar-wrapper
   .upper-header
     padding-top: 20px;
   .header-clearer
@@ -26,19 +26,18 @@ body
     li
       a:hover
         background-color: inherit !important;
-  #navbar
+  .navbar-collapse
     ul
       width: 100%;
       li
         text-transform: uppercase;
-        width: 16%; 
         text-align: center;
         margin-bottom: 4px;
       li:hover
         border-bottom: 5px solid $black;
         margin-bottom: -4px;
 
-#navbar-wrapper.shrink
+.navbar-wrapper.shrink
   .upper-header
     display: none;
 
@@ -61,7 +60,7 @@ body
 .footer
   background-color: $black;
   padding: 20px;
-  color: #fafafa;
+  color: $white;
 
 .footer *::selection
   color: $black;
@@ -96,7 +95,7 @@ input.form-control, .input-group-addon
 /* Media Queries */
 
 @media (min-width:992px)
-  #navbar-wrapper
+  .navbar-wrapper
     .upper-header
       form
         width: 250px;
@@ -104,9 +103,9 @@ input.form-control, .input-group-addon
         transition: width 0.1s linear;
 
 @media (max-width:768px)
-  #navbar-wrapper.shrink .navbar-brand
+  .navbar-wrapper.shrink .navbar-brand
     display: block;
 
 @media (max-width:992px)
-  #navbar-wrapper .header-clearer
+  .navbar-wrapper .header-clearer
     margin-top: 310px;

@@ -42,9 +42,8 @@ export default class TrendingTopics extends React.Component {
         <h1 style={{fontFamily: 'chardons', fontWeight: '100', textAlign: 'center', marginBottom: '20px'}}>Trending Topics</h1>
         {
           this.state.topics.map(t => (
-            <div className="col-md-6">
+            <div className="col-md-6" key={t.slug}>
               <Topic 
-                key={t.slug}
                 image={t.header.image}
                 author={t.author.name}
                 url={`/${t.category}/${t.slug}`}
