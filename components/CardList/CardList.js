@@ -51,7 +51,7 @@ export class Card extends React.Component {
 export default class CardList extends React.Component {
   constructor (p) {
     super(p);
-    this.state = { cardData: [] };
+    this.state = { cardData: null };
   }
   componentDidMount() {
     $.getJSON(this.props.dataSource, e => {
@@ -61,16 +61,26 @@ export default class CardList extends React.Component {
     });
   }
   render() {
-    let cards = this.state.cardData.length > 0 ? this.state.cardData.map(e => (
-      <Card
-        image={e.header.image}
-        url={`/${e.category}/${e.slug}`}
-        title={e.title}
-        key={e.title + Math.random()}>
-        {e.header.summary}
-      </Card>
-    )) : (<div> <h2> No posts to show :( Browse through trending topics </h2> <TrendingTopics /> </div>);
-
+    let cards;
+    if(this.state.cardData) {
+      if(this.state.cardData.length > 0) {
+        cards = this.state.cardData.map(e => (
+          <Card
+            image={e.header.image}
+            url={`/${e.category}/${e.slug}`}
+            title={e.title}
+            key={e.title + Math.random()}>
+            {e.header.summary}
+          </Card>
+        )) ;
+      } else {
+        cards = (
+          <div>
+            <h2> No posts to show :( Browse through trending topics </h2>
+            <TrendingTopics />
+          </div>);
+      }
+    }
     return (<div className='container'>{cards}</div>);
   }
 }

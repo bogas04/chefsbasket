@@ -6,7 +6,7 @@ import Home from './Home';
 import Entertainment from './Entertainment';
 import People from './People';
 import Travel from './Travel';
-import Community from './Community';
+import RecipeKit from './RecipeKit';
 import Ingredients from './Ingredients';
 import Recipes from './Recipes';
 import Article from './Article';
@@ -23,7 +23,7 @@ module.exports = [
     <Route path="ingredients" component={Ingredients}>
       <Route path=":id" component={Article}/>
     </Route>
-    <Route path="community" component={Community} />
+    <Route path="recipekit" component={RecipeKit} />
     <Route path="travel" component={Travel}>
       <Route path=":id" component={Article}/>
     </Route>

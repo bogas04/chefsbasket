@@ -44,7 +44,7 @@ export default class Navigation extends React.Component {
         <ul className="nav navbar-nav">
           <li><Link to={`/recipes`}>Recipes</Link></li>
           <li><Link to={`/ingredients`}>Ingredients</Link></li>
-          <li><Link to={`/community`}>Community</Link></li>
+          <li><Link to={`/recipekit`}>Recipe Kit</Link></li>
           <li><Link to={`/travel`}>Travel</Link></li>
           <li><Link to={`/entertainment`}>Entertainment</Link></li>
           <li><Link to={`/people`}>People</Link></li>
