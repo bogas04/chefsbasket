@@ -1,4 +1,5 @@
 import React from 'react';
+import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 import Banner from '../Banner';
 import Related from '../Related';
 import Hr from '../Hr';
@@ -10,6 +11,17 @@ export default class Article extends React.Component {
   constructor(p) {
     super(p);
     this.state = { data: null };
+    if(ExEnv.canUseDOM) {
+      $.getJSON(`/articles.json?id=${this.props.params.id}`, data => {
+        this.setState({ data: this.fillIn(data.data.category, data.data)});
+      }).fail(e => {
+        this.setState({ data: <NotFound /> });
+      });
+    } else {
+      // TODO: Test server rendering
+      // this.setState({ data: { category: 'travel', body: 'yolo' }});
+      //      fs.readFile(__dirname + '/server/data/')
+    }
   }
   fillIn(layout, data) {
     return (
@@ -54,13 +66,6 @@ export default class Article extends React.Component {
         <Related _for={this.props.params.id}/>
       </div>
     );
-  }
-  componentDidMount() {
-    $.getJSON(`/articles.json?id=${this.props.params.id}`, data => {
-      this.setState({ data: this.fillIn(data.data.category, data.data)});
-    }).fail(e => {
-      this.setState({ data: <NotFound /> });
-    });
   }
   render() {
     return this.state.data || (<h1> Loading ... </h1>);

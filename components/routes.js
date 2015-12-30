@@ -11,6 +11,7 @@ import Ingredients from './Ingredients';
 import Recipes from './Recipes';
 import Article from './Article';
 import Login from './Login';
+import Admin from './Admin';
 import Search from './Search';
 
 module.exports = [
@@ -34,5 +35,7 @@ module.exports = [
       <Route path=":id" component={Article}/>
     </Route>
     <Route path="login" component={Login}/>
-  </Route>
+  </Route>,
+  <Route path="/admin" component={Admin}>
+  </Route>,
 ];
