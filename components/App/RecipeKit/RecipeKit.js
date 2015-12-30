@@ -1,6 +1,6 @@
 import React from 'react';
-import Hr from '../Hr';
-import Content from '../Content';
+import Hr from '../../common/Hr';
+import Content from '../../common/Content';
 
 export default class RecipeKit extends React.Component {
   constructor(p) {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Navigation from '../Navigation';
-import Subscribe from '../Subscribe';
-import Footer from '../Footer';
+import Navigation from '../common/Navigation';
+import Subscribe from '../common/Subscribe';
+import Footer from '../common/Footer';
 
 export default class App extends React.Component {
   render() {

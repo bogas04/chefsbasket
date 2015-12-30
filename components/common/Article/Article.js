@@ -3,9 +3,10 @@ import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 import Banner from '../Banner';
 import Related from '../Related';
 import Hr from '../Hr';
-import NotFound from '../NotFound';
 import Content from '../Content';
 import Tag from '../Tag';
+
+import NotFound from '../../NotFound';
 
 export default class Article extends React.Component {
   constructor(p) {

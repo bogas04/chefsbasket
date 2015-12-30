@@ -1,6 +1,6 @@
 import React from 'react';
-import TrendingTopics from '../TrendingTopics';
-import Content from '../Content';
+import TrendingTopics from '../common/TrendingTopics';
+import Content from '../common/Content';
 
 export default class NotFound extends React.Component {
   render() {

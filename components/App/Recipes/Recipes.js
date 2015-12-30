@@ -1,6 +1,6 @@
 import React from 'react';
-import CardList from '../CardList';
-import Content from '../Content';
+import CardList from '../../common/CardList';
+import Content from '../../common/Content';
 
 export default class Recipes extends React.Component {
   constructor(p) {

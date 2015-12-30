@@ -1,7 +1,10 @@
 import React from 'react';
-import Navigation from '../Navigation';
+import Navigation from '../common/Navigation';
 
 export default class Admin extends React.Component {
+  constructor(p) {
+    super(p);
+  }
   render() {
     return (
       <div>
@@ -14,7 +17,7 @@ export default class Admin extends React.Component {
             {url:`/admin/home-page`, title: `Home Page`},
           ]}
         />
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }

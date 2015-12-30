@@ -1,9 +1,9 @@
 import React from 'react';
-import Hr from '../Hr';
-import Banner from '../Banner';
-import CardList from '../CardList';
-import WouldYouCook from '../WouldYouCook';
-import TrendingTopics from '../TrendingTopics';
+import Hr from '../../common/Hr';
+import Banner from '../../common/Banner';
+import CardList from '../../common/CardList';
+import WouldYouCook from '../../common/WouldYouCook';
+import TrendingTopics from '../../common/TrendingTopics';
 
 export default class Home extends React.Component {
   render() {

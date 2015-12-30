@@ -1,8 +1,8 @@
 import React from 'react';
-import CardList from '../CardList';
-import Content from '../Content';
+import CardList from '../../common/CardList';
+import Content from '../../common/Content';
 
-export default class Travel extends React.Component {
+export default class Entertainment extends React.Component {
   constructor(p) {
     super(p);
   }
@@ -12,7 +12,7 @@ export default class Travel extends React.Component {
         {
           this.props.children || (
             <Content>
-              <h1> Travel stuff </h1>
+              <h1> Entertainment stuff </h1>
               <CardList dataSource='/articles.json?category=travel' />
             </Content>
             )
