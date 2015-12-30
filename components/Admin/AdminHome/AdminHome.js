@@ -1,7 +1,7 @@
 import React from 'react';
 import Content from '../../common/Content';
 
-export class AdminHome extends React.Component {
+export default class AdminHome extends React.Component {
   render() {
     return (
       <Content>

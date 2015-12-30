@@ -32,7 +32,6 @@ let webpackConfig = {
 
 gulp.task('default', cb => {
   runSequence(
-    'bower',
     ['stylus', 'react-es2015-dev']
   );
 });
