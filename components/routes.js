@@ -17,11 +17,13 @@ import Article from './common/Article';
 
 import Admin from './Admin';
 import AdminHome from './Admin/AdminHome';
+import AddArticle from './Admin/AddArticle';
 
 module.exports = (
   <Router>
     <Route path="admin" component={Admin}>
       <IndexRoute component={AdminHome} />
+      <Route path="article/add" component={AddArticle} />
     </Route>
     <Route path="/" component={App} >
       <IndexRoute component={Home} />

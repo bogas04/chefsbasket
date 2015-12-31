@@ -15,6 +15,8 @@ npm start
 * [ ] Use some file system for assets of dynamic data
 * [ ] Use some database to store dynamic data (Postgres using Massive?)
 * [ ] Build up log-in system (username pass, fb, tw, google)
+* [ ] Write GET/POST apis for like/collection
 * [ ] Create admin panel to update data/add new entries
+* [ ] Write POST apis for article/main-page/home etc
 * [x] Figure out server rendering using `react-dom/server`
 * [x] Use stylus using webpack (cleaner code, auto-prefix loaders etc can save dev time)

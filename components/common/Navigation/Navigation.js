@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import throttle from 'lodash.throttle';
 
 export default class Navigation extends React.Component {
   componentDidMount () {
-    window.onscroll = () => { 
-      let $navbar = document.querySelector('.navbar-wrapper');
+    window.onscroll = throttle(() => { 
+      let $navbar = document.getElementsByClassName('navbar-wrapper')[0];
       window.scrollY > 300 ? $navbar.classList.add('shrink') : $navbar.classList.remove('shrink');
-    };
+    }, 200);
   }
   render() {
     return (

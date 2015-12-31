@@ -11,17 +11,22 @@ import NotFound from '../../NotFound';
 export default class Article extends React.Component {
   constructor(p) {
     super(p);
-    this.state = { data: null };
-    if(ExEnv.canUseDOM) {
+    this.state = { data: this.props.default || <h1> Loading ... </h1> };
+    if(!this.props.loadStatic && ExEnv.canUseDOM) { // dynamic loading/client loading
       $.getJSON(`/articles.json?id=${this.props.params.id}`, data => {
         this.setState({ data: this.fillIn(data.data.category, data.data)});
       }).fail(e => {
         this.setState({ data: <NotFound /> });
       });
-    } else {
-      // TODO: Test server rendering
-      // this.setState({ data: { category: 'travel', body: 'yolo' }});
-      //      fs.readFile(__dirname + '/server/data/')
+    }
+  }
+  componentWillReceiveProps() {
+    if(this.props.loadStatic) { // static loading/server loading
+      if(this.props.data) {
+        this.setState({
+          data: this.fillIn(this.props.data.category || 'travel', this.props.data)
+        });
+      }
     }
   }
   fillIn(layout, data) {
@@ -46,7 +51,7 @@ export default class Article extends React.Component {
                 <h2>Ingredients</h2>
                 <div dangerouslySetInnerHTML = {{__html: data.ingredients}} />
                 <h3> Tags </h3>
-                {data.tags.map(e => <Tag to={e} key={e} />)}
+                {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
               </div>
               <div className="col-md-8">
                 <h2>Preparation</h2>
@@ -59,16 +64,16 @@ export default class Article extends React.Component {
               <div dangerouslySetInnerHTML = {{__html: data.body}} />
               <div>
                 <h3> Tags </h3>
-                {data.tags.map(e => <Tag to={e} key={e} />)}
+                {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
               </div>
             </Content>
             )
         }
-        <Related _for={this.props.params.id}/>
+        <Related _for={this.props.params ? this.props.params.id : null}/>
       </div>
     );
   }
   render() {
-    return this.state.data || (<h1> Loading ... </h1>);
+    return this.state.data;
   }
 }

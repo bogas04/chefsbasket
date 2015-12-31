@@ -10,7 +10,7 @@ export default class Related extends React.Component {
       related: []
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.getTopics(arr => this.setState({
       related: arr.map(e => (
         <div className="col-md-4" key={e.slug} >

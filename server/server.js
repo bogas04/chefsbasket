@@ -47,6 +47,32 @@ let getArticle = (req, res) => {
 };
 
 app.get('/articles.json', getArticle);
+app.post('/articles.json', (req, res) => {
+  let fs = require('fs');
+  fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, data) => {
+    if(err) return res.status(500).json({msg: `Couldn't connect to articles`, err});
+    data = JSON.parse(data);
+    data.push(req.body);
+    fs.writeFile(`${__dirname}/data/articles.json`, JSON.stringify(data), err => {
+      if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
+      return res.status(200).json({msg: `Uploaded the article`});
+    });
+  });
+});
+
+app.post('/like', (req, res) => {
+  let fs = require('fs');
+  fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, data) => {
+    if(err) return res.status(500).json({msg: `Couldn't connect to articles`, err});
+    data = JSON.parse(data);
+    // Logic
+    //data.push(req.body);
+    //fs.writeFile(`${__dirname}/data/articles.json`, JSON.stringify(data), err => {
+      //if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
+      //return res.status(200).json({msg: `Uploaded the article`});
+    //});
+  });
+});
 
 app.use('/data', express.static(__dirname + '/../data'));
 app.use('/', express.static(__dirname + '/../client'));
