@@ -1,6 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ImageWrapper from '../ImageWrapper';
+import ExEnv from 'fbjs/lib/ExecutionEnvironment';
+
+export default class TrendingTopics extends React.Component {
+  constructor(p) {
+    super(p);
+    this.state = { topics: [] };
+    if(ExEnv.canUseDOM) {
+      fetch('/articles.json?trending=1')
+      .then(data => data.json())
+      .then(data => this.setState({ topics: data.data.slice(0, 2) }));
+    } else {
+      // server side rendering
+      // Option 1: Consume the REST API Synchronously.
+      // Option 2: Use the function that API route uses. (much better approach)
+    }
+  }
+  render() {
+    return (
+      <div className="container">
+        <h1 style={{fontFamily: 'chardons', fontWeight: '100', textAlign: 'center', marginBottom: '20px'}}>Trending Topics</h1>
+        {
+          this.state.topics.map(t => (
+            <div className="col-md-6" key={t.slug}>
+              <Topic 
+                image={t.header.image}
+                author={t.author.name}
+                url={`/${t.category}/${t.slug}`}
+                likes={t.likes}
+                date={t.created_at}
+                >
+                {t.title}
+              </Topic>
+            </div>
+            ))
+        }
+      </div>
+    );
+  }
+}
 
 class Topic extends React.Component {
   render() {
@@ -26,36 +65,3 @@ class Topic extends React.Component {
   }
 }
 
-export default class TrendingTopics extends React.Component {
-  constructor(p) {
-    super(p);
-    this.state = { topics: [] };
-  }
-  componentDidMount() {
-    fetch('/articles.json?trending=1')
-    .then(data => data.json())
-    .then(data => this.setState({ topics: data.data.slice(0, 2) }));
-  }
-  render() {
-    return (
-      <div className="container">
-        <h1 style={{fontFamily: 'chardons', fontWeight: '100', textAlign: 'center', marginBottom: '20px'}}>Trending Topics</h1>
-        {
-          this.state.topics.map(t => (
-            <div className="col-md-6" key={t.slug}>
-              <Topic 
-                image={t.header.image}
-                author={t.author.name}
-                url={`/${t.category}/${t.slug}`}
-                likes={t.likes}
-                date={t.timestamp}
-                >
-                {t.title}
-              </Topic>
-            </div>
-            ))
-        }
-      </div>
-    );
-  }
-}

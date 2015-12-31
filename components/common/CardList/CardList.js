@@ -2,6 +2,7 @@
 
 import React from 'react';
 import TrendingTopics from '../TrendingTopics';
+import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 
 export class Card extends React.Component {
   constructor(props) {
@@ -52,13 +53,13 @@ export default class CardList extends React.Component {
   constructor (p) {
     super(p);
     this.state = { cardData: null };
-  }
-  componentDidMount() {
-    fetch(this.props.dataSource)
-    .then(d => d.json())
-    .then(e => this.setState({
-      cardData: e.data
-    }));
+    if(ExEnv.canUseDOM) {
+      fetch(this.props.dataSource)
+      .then(d => d.json())
+      .then(e => this.setState({
+        cardData: e.data
+      }));
+    }
   }
   render() {
     let cards;
