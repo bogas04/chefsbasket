@@ -2,7 +2,6 @@
 
 const gulp = require('gulp');
 const webpack = require('webpack');
-const shell = require('gulp-shell');
 const stylus = require('gulp-stylus');
 const bower = require('gulp-bower');
 const rename = require('gulp-rename');
