@@ -54,11 +54,11 @@ export default class CardList extends React.Component {
     this.state = { cardData: null };
   }
   componentDidMount() {
-    $.getJSON(this.props.dataSource, e => {
-      this.setState({
-        cardData: e.data
-      });
-    });
+    fetch(this.props.dataSource)
+    .then(d => d.json())
+    .then(e => this.setState({
+      cardData: e.data
+    }));
   }
   render() {
     let cards;

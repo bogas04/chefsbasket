@@ -48,6 +48,7 @@ let getArticle = (req, res) => {
 
 app.get('/articles.json', getArticle);
 app.post('/articles.json', (req, res) => {
+  console.log(req);
   let fs = require('fs');
   fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, data) => {
     if(err) return res.status(500).json({msg: `Couldn't connect to articles`, err});

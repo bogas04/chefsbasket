@@ -11,8 +11,10 @@ export default class Related extends React.Component {
     };
   }
   componentDidMount() {
-    this.getTopics(arr => this.setState({
-      related: arr.map(e => (
+    fetch(`/articles.json?relatedTo=${this.props._for}`)
+    .then(data => data.json())
+    .then(data => this.setState({
+      related: data.data.map(e => (
         <div className="col-md-4" key={e.slug} >
           <Link to={`/${e.category}/${e.slug}`} style={{textDecoration: 'none'}}>
             <ImageWrapper src={e.header.image} alt={e.title} height='260px' />
@@ -22,11 +24,6 @@ export default class Related extends React.Component {
         </div>
       ))
     }));
-  }
-  getTopics(cb) {
-    $.getJSON(`/articles.json?relatedTo=${this.props._for}`, data => {
-      cb(data.data);
-    });
   }
   render() {
     return (

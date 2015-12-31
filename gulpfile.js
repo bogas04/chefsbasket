@@ -22,11 +22,17 @@ let webpackConfig = {
           presets: ['react', 'es2015'],
         }
       }
-    ]
+    ],
   },
   output: {
     filename: 'bundle.js'
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
+  ]
 };
 
 gulp.task('default', cb => {
@@ -63,7 +69,8 @@ gulp.task('stylus', cb => {
 gulp.task('react-es2015', cb => {
   return gulp.src('components/index.js')
   .pipe(webpackStream(Object.assign( webpackConfig, {
-    plugins: [
+    plugins: [...webpackConfig.plugins, 
+      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production')

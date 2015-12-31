@@ -32,9 +32,9 @@ export default class TrendingTopics extends React.Component {
     this.state = { topics: [] };
   }
   componentDidMount() {
-    $.getJSON('/articles.json?trending=1', data => {
-      this.setState({ topics: data.data.slice(0, 2) });
-    });
+    fetch('/articles.json?trending=1')
+    .then(data => data.json())
+    .then(data => this.setState({ topics: data.data.slice(0, 2) }));
   }
   render() {
     return (

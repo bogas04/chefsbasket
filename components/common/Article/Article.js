@@ -11,13 +11,12 @@ import NotFound from '../../NotFound';
 export default class Article extends React.Component {
   constructor(p) {
     super(p);
-    this.state = { data: this.props.default || <h1> Loading ... </h1> };
+    this.state = { data: this.props.default || <h1 className="text-center"> Loading ... </h1> };
     if(!this.props.loadStatic && ExEnv.canUseDOM) { // dynamic loading/client loading
-      $.getJSON(`/articles.json?id=${this.props.params.id}`, data => {
-        this.setState({ data: this.fillIn(data.data.category, data.data)});
-      }).fail(e => {
-        this.setState({ data: <NotFound /> });
-      });
+      fetch(`/articles.json?id=${this.props.params.id}`)
+      .then(data => data.json())
+      .then(data => this.setState({ data: this.fillIn(data.data.category, data.data)}))
+      .catch(e => this.setState({ data: <NotFound /> }));
     }
   }
   componentWillReceiveProps() {

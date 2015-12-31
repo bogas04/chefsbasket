@@ -14,7 +14,7 @@ export default class AddArticle extends React.Component {
       }
     };
   }
-  submit() {
+  submit(e) {
     e.preventDefault();
     console.log(e);
   }
@@ -109,6 +109,7 @@ export default class AddArticle extends React.Component {
                     )
               }
             </div>
+            <button className="btn btn-default">Add Article</button>
           </form>
         </Content>
         <h1 id="preview"> Live Render </h1>
