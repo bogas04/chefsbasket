@@ -10,4 +10,4 @@ client/components
 client/components/*
 client/js/bundle.js
 client/css/main.css
-
+server/data/articles.json
