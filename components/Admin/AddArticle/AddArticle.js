@@ -48,8 +48,9 @@ export default class AddArticle extends React.Component {
       method: 'post',
       body: JSON.stringify(this.state.data)
     })
+    .then(e => e.json())
     .then(e => alert(e.msg))
-    .catch(e => alert(e.msg));
+    .catch(e => console.log(e));
   }
   update(type, e) {
     throttle((type, e) => {

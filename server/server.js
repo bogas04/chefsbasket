@@ -29,7 +29,7 @@ app.get('/articles.json', (req, res) => {
 
   // This is like DB connect
   fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, file) => {
-    if(err) return res.status(500).json({ msg: 'server error' });
+    if(err) return res.status(400).json({ msg: 'server error' });
     // This is like table select
     let data = JSON.parse(file);
 
@@ -70,14 +70,16 @@ app.post('/articles.json', (req, res) => {
 
   // Check for profanity, child abuse etc words
   if (profaneWords.reduce((has, word) => has = has || articleStr.includes(word), false)) {
-    return res.status(500).json({msg : `Article contains profane words`});
+    return res.status(400).json({msg : `Article contains profane words`});
   }
 
   // Check image format
+  if (article.header.image.length === 0) { return res.status(400).json({msg : `Upload an image`}); }
   let matches = article.header.image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-  if (matches.length !== 3) { return res.status(500).json({msg: `Invalid image`}); }
-  if (imageExtensions.indexOf(matches[1]) < 0) { return res.status(500).json({msg: `Invalid image format`}); }
+  if (matches.length !== 3) { return res.status(400).json({msg: `Invalid image`}); }
+  if (imageExtensions.indexOf(matches[1]) < 0) { return res.status(400).json({msg: `Invalid image format`}); }
   let ext = '.' + matches[1].replace('image/', '');
+
 
   // Upload image
   fs.writeFile(`${PUBLIC_IMAGE_DIR}${article.slug}${ext}`, new Buffer(matches[2], 'base64'), err => {
@@ -100,12 +102,12 @@ app.post('/articles.json', (req, res) => {
 app.post('/like', (req, res) => {
   let fs = require('fs');
   fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, data) => {
-    if(err) return res.status(500).json({msg: `Couldn't connect to articles`, err});
+    if(err) return res.status(400).json({msg: `Couldn't connect to articles`, err});
     data = JSON.parse(data);
     // Logic
     //data.push(req.body);
     //fs.writeFile(`${__dirname}/data/articles.json`, JSON.stringify(data), err => {
-    //if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
+    //if(err) return res.status(400).json({msg: `Couldn't upload the article`, err});
     //return res.status(200).json({msg: `Uploaded the article`});
     //});
   });
