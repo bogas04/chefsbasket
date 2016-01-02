@@ -1,5 +1,5 @@
 import React from 'react';
-import Markdown from 'react-markdown';
+import Markdown from 'react-remarkable';
 import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 import Banner from '../Banner';
 import Related from '../Related';

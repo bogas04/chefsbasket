@@ -98,8 +98,8 @@ export default class AddArticle extends React.Component {
               <div className="help-block">Header image 2000x500 px recommended</div>
             </div>
             <div className="col-md-8">
-              <input onChange={e => this.update('header.title', e)} placeholder="Header Title" className="form-control" name="header.title" id="header.title" type="text" />
-              <textarea onChange={e => this.update('header.summary', e)} placeholder="Header Summary" className="form-control"
+              <input onInput={e => this.update('header.title', e)} placeholder="Header Title" className="form-control" name="header.title" id="header.title" type="text" />
+              <textarea onInput={e => this.update('header.summary', e)} placeholder="Header Summary" className="form-control"
                 name="header.summary" id="header.summary" rows="3"></textarea>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default class AddArticle extends React.Component {
 
         <div className="form-group">
           <label>Article Title</label>
-          <input onChange={e => this.update('title', e)} className="form-control" type="text" placeholder="Title" name="title"/>
+          <input onInput={e => this.update('title', e)} className="form-control" type="text" placeholder="Title" name="title"/>
           <p className="help-block">{this.state.data.title.length > 0 && <span>Your URL would look like : <code>chefsbasket.com/{this.state.data.slug}</code></span>}</p>
 
           <div className="row">
@@ -123,30 +123,30 @@ export default class AddArticle extends React.Component {
             </div>
             <div className="col-md-6">
               <label> Tags </label>
-              <input onChange={e => this.update('tags', e)} className="form-control" type="text" placeholder="Tag1,Tag2,..." name="tags" id="tags"/>
+              <input onInput={e => this.update('tags', e)} className="form-control" type="text" placeholder="Tag1,Tag2,..." name="tags" id="tags"/>
             </div>
-            {
-              this.state.data.category === 'recipes' && <div className="row">
-                <label> Recipe Attributes </label>
-                <div className="col-md-6">
-                  <input id="serves" onChange={e => this.update('serves', e)} className="form-control" type="text" placeholder="Serves" name="serves"/>
-                </div>
-                <div className="col-md-6">
-                  <input id="difficulty" onChange={e => this.update('difficulty', e)} className="form-control" type="text" placeholder="Difficulty" name="difficulty"/>
-                </div>
+          </div>
+          {
+            this.state.data.category === 'recipes' && <div className="row">
+              <div className="col-md-6">
+                <label> Serves </label>
+                <input id="serves" onInput={e => this.update('serves', e)} className="form-control" type="text" placeholder="Serves" name="serves"/>
               </div>
-              }
-            </div>
+              <div className="col-md-6">
+                <label> Difficulty </label>
+                <input id="difficulty" onInput={e => this.update('difficulty', e)} className="form-control" type="text" placeholder="Difficulty" name="difficulty"/>
+              </div>
+            </div>}
           </div>
 
           <div className="form-group">
             <label>Author Details</label>
             <div className="row">
               <div className="col-md-6">
-                <input id="author.name" onChange={e => this.update('author.name', e)} className="form-control" type="text" placeholder="Author" name="author.name"/>
+                <input id="author.name" onInput={e => this.update('author.name', e)} className="form-control" type="text" placeholder="Author" name="author.name"/>
               </div>
               <div className="col-md-6">
-                <input id="author.url" onChange={e => this.update('author.url', e)} className="form-control" type="text" placeholder="Author URL" name="author.url"/>
+                <input id="author.url" onInput={e => this.update('author.url', e)} className="form-control" type="text" placeholder="Author URL" name="author.url"/>
               </div>
             </div>
           </div>
@@ -159,19 +159,19 @@ export default class AddArticle extends React.Component {
                   <div className="row">
                     <div className="col-md-4">
                       <label> Ingredients </label>
-                      <textarea id="ingredients" onChange={e => this.update('ingredients', e)} className="form-control" rows="10"
+                      <textarea id="ingredients" onInput={e => this.update('ingredients', e)} className="form-control" rows="10"
                         placeholder="* Onions &#13;&#10;* Bell pepper ..." name="ingredients"></textarea>
                     </div>
                     <div className="col-md-8">
                       <label> Procedure </label>
-                      <textarea id="procedure" onChange={e => this.update('procedure', e)} className="form-control" rows="10"
+                      <textarea id="procedure" onInput={e => this.update('procedure', e)} className="form-control" rows="10"
                         placeholder="# Step 1 &#13;&#10;Saute chopped onions" name="procedure"></textarea>
                     </div>
                   </div>
                   ) : (
                   <div className="row">
                     <label> Article body </label>
-                    <textarea id="body" onChange={e => this.update('body', e)} className="form-control" rows="10"
+                    <textarea id="body" onInput={e => this.update('body', e)} className="form-control" rows="10"
                       placeholder="Content" name="body"></textarea>
                   </div>
                   )
