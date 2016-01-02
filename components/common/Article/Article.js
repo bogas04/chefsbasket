@@ -1,4 +1,5 @@
 import React from 'react';
+import Markdown from 'react-markdown';
 import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 import Banner from '../Banner';
 import Related from '../Related';
@@ -48,19 +49,19 @@ export default class Article extends React.Component {
               <h2> {data.title} </h2>
               <div className="col-md-4">
                 <h2>Ingredients</h2>
-                <div dangerouslySetInnerHTML = {{__html: data.ingredients}} />
+                <Markdown source={data.ingredients} />
                 <h3> Tags </h3>
                 {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
               </div>
               <div className="col-md-8">
                 <h2>Preparation</h2>
-                <div dangerouslySetInnerHTML = {{__html: data.procedure}} />
+                <Markdown source={data.procedure} />
               </div>
             </Content>
             ) : (
             <Content>
               <h2> {data.title} </h2>
-              <div dangerouslySetInnerHTML = {{__html: data.body}} />
+              <Markdown source={data.body} />
               <div>
                 <h3> Tags </h3>
                 {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}

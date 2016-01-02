@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import routes from '../components/routes';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -7,11 +8,16 @@ import { match, RoutingContext } from 'react-router';
 const app = express();
 const router  = express.Router();
 
-app.set('view engine', 'ejs');
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 app.use((req, res, next) => { console.log(`${req.method} ${req.url}`); next(); });
 
-let getArticle = (req, res) => {
+app.set('view engine', 'ejs');
+
+app.get('/articles.json', (req, res) => {
   let fs = require('fs');
   if(req.query.category && [
     'entertainment',
@@ -33,7 +39,7 @@ let getArticle = (req, res) => {
     if(req.query.q) { // Search Logic
       data = data.filter(e => e.title.includes(req.query.q));
     }
-    if(req.query.tag) { // Search Logic
+    if(req.query.tag) { // Search Logic for tags
       data = data.filter(e => e.tags.indexOf(req.query.tag) > -1);
     }
 
@@ -44,19 +50,49 @@ let getArticle = (req, res) => {
       return res.status(200).json({ msg: `found ${data.length}`, data });
     }
   });
-};
+});
 
-app.get('/articles.json', getArticle);
 app.post('/articles.json', (req, res) => {
-  console.log(req);
-  let fs = require('fs');
-  fs.readFile(`${__dirname}/data/articles.json`, 'utf-8', (err, data) => {
-    if(err) return res.status(500).json({msg: `Couldn't connect to articles`, err});
-    data = JSON.parse(data);
-    data.push(req.body);
+  let fs = require("fs");
+  let data = JSON.parse(fs.readFileSync(`${__dirname}/data/articles.json`, 'utf-8'));
+  let article = req.body;
+  let articleStr = JSON.stringify(Object.assign({}, article, {header: { image: '' }}));
+  const imageExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+  const profaneWords = ['fuck', 'asshole', 'bitch'];  // TODO: Use a module
+  const PUBLIC_IMAGE_URL = '/public/img/';
+  const PUBLIC_IMAGE_DIR = `${__dirname}/../client/public/img/`;
+
+  // Check if slug matches any other, if it does, add timestamp to slug
+  if (data.find(e => e.slug === article.slug)) {
+    let d = new Date();
+    article.slug += d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+  }
+
+  // Check for profanity, child abuse etc words
+  if (profaneWords.reduce((has, word) => has = has || articleStr.includes(word), false)) {
+    return res.status(500).json({msg : `Article contains profane words`});
+  }
+
+  // Check image format
+  let matches = article.header.image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+  if (matches.length !== 3) { return res.status(500).json({msg: `Invalid image`}); }
+  if (imageExtensions.indexOf(matches[1]) < 0) { return res.status(500).json({msg: `Invalid image format`}); }
+  let ext = '.' + matches[1].replace('image/', '');
+
+  // Upload image
+  fs.writeFile(`${PUBLIC_IMAGE_DIR}${article.slug}${ext}`, new Buffer(matches[2], 'base64'), err => {
+    if (err) return res.status(503).json({msg: `Couldn't save your image`, err});
+
+    // Store address of image in object
+    article.header.image = `${PUBLIC_IMAGE_URL}${article.slug}${ext}`;
+
+    // Insert article
+    data.push(article);
+
+    // Write to file
     fs.writeFile(`${__dirname}/data/articles.json`, JSON.stringify(data), err => {
-      if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
-      return res.status(200).json({msg: `Uploaded the article`});
+      if (err) return res.status(503).json({msg: `Couldn't save your article`, err});
+      return res.status(200).json({msg: `Article saved`});
     });
   });
 });
@@ -69,16 +105,16 @@ app.post('/like', (req, res) => {
     // Logic
     //data.push(req.body);
     //fs.writeFile(`${__dirname}/data/articles.json`, JSON.stringify(data), err => {
-      //if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
-      //return res.status(200).json({msg: `Uploaded the article`});
+    //if(err) return res.status(500).json({msg: `Couldn't upload the article`, err});
+    //return res.status(200).json({msg: `Uploaded the article`});
     //});
   });
 });
 
-app.use('/data', express.static(__dirname + '/../data'));
+// Public files
 app.use('/', express.static(__dirname + '/../client'));
 
-// Redirect to this on /track?source=google_ad -> http://www.amazon.in/gp/feature.html/?ie=UTF8&docId=1000846393
+// React Isomorphic Stuff
 app.get('*', (req, res, next) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {

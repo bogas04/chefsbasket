@@ -67,12 +67,19 @@ body
   background-color: $white;
 
 /* Bootstrap Fixes */
-textarea.form-control, input.form-control, .input-group-addon
+select.form-control, textarea.form-control, input.form-control, .input-group-addon
   border: 2px solid $black;
   border-radius: 0px;
   margin: 1px;
   background-color: white;
   color: $black;
+
+input[type="file"].form-control
+  min-height: 60px;
+  background-color: $white;
+  border: none;
+  box-shadow: none;
+
 .btn
   margin-top: 1px;
   height: 39px;
