@@ -4,15 +4,21 @@ const gulp = require('gulp');
 const webpack = require('webpack');
 const bower = require('gulp-bower');
 const stylus = require('gulp-stylus');
+const nodemon = require('gulp-nodemon');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
 const runSequence = require('run-sequence');
 const webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('default', cb => runSequence(['stylus', 'react-es2015-dev']) );
+gulp.task('default', cb => runSequence(['dev-server', 'stylus', 'react-es2015-dev']) );
 
 gulp.task('production', cb => runSequence( ['bower', 'stylus', 'react-es2015'] ) );
+
+gulp.task('dev-server', cb => nodemon({
+  script: 'server',
+  exec: './node_modules/.bin/babel-node'
+}));
 
 gulp.task('bower', cb => (
   bower({ cwd: './client' })
@@ -67,9 +73,6 @@ let webpackConfig = {
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
         include: /components/,
-        query: {
-          presets: ['react', 'es2015'],
-        }
       }
     ],
   },
