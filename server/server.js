@@ -15,10 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Basic Logger
 app.use((req, res, next) => { console.log(`${req.method} ${req.url}`); next(); });
 
+// Views Engine setup
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+// API
 // Articles
-app.use('/articles.json', require('./articles'));
+app.use('/articles.json', require('./api/articles'));
 
 // Like API
 app.post('/like', (req, res) => { res.status(501) });

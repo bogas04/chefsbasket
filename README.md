@@ -9,14 +9,15 @@ npm start
 ```
 
 # Todo
-* [ ] Build tracking services
+* [ ] Build tracking/logging services
 * [ ] Implement all the layouts
 * [ ] Make all components use data given from props
-* [ ] Use some file system for assets of dynamic data
-* [ ] Use some database to store dynamic data (Postgres using Massive?)
 * [ ] Build up log-in system (username pass, fb, tw, google)
-* [ ] Write GET/POST apis for like/collection
-* [ ] Create admin panel to update data/add new entries
-* [ ] Write POST apis for article/main-page/home etc
+* [ ] Complete all APIs
+* [ ] Find a smarter way to store tags of articles (Postgresql arrays?)
+* [ ] Refactor components to use snake case instead of deep JSON objects (eg: `header_title` instead of `header.title`)
+* [x] Use some file system for assets of dynamic data (using `client/public` for now)
+* [x] Create admin panel to update data/add new entries
+* [x] Use some database to store dynamic data (Postgres using Massive?)
 * [x] Figure out server rendering using `react-dom/server`
 * [x] Use stylus using webpack (cleaner code, auto-prefix loaders etc can save dev time)

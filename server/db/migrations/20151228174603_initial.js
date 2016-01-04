@@ -2,68 +2,82 @@
 
 let constants = require('../../../constants');
 
-exports.up = (knex, Promise) => Promise.all([
+exports.down = (knex, Promise) => knex.schema
+.dropTable('users')
+.dropTable('articles')
+.dropTable('collections')
+.dropTable('tags')
+.dropTable('comments');
 
-  knex.schema.createTable('users', table => {
-    table.bigIncrements('id').primary().unsigned();
-    table.string('name', 50);
-    table.string('email', 100);
-    table.string('password', 255);
-    table.enum('type', constants.userTypes).defaultTo(constants.default.userType);
+exports.up = (knex, Promise) => knex.schema
 
-    table.timestamps();
-  }),
+.createTable('articles', table => {
+  table.bigIncrements('id').primary().unsigned();
 
-  knex.schema.createTable('tags', table => {
-    table.string('name', 50).primary();
-    table.biginteger('article_id').unsigned().index().references('id').inTable('articles');
-  }),
+  table.string('slug', 250).index();
 
-  knex.schema.createTable('collections', table => {
-    table.bigIncrements('id').primary().unsigned();
-    table.string('name', 50);
-    table.biginteger('user_id').unsigned().index().references('id').inTable('users');
-    table.biginteger('article_id').unsigned().index().references('id').inTable('articles');
-  }),
+  table.string('title', 250);
+  table.string('author_name', 250).defaultTo(constants.default.authorName);
+  table.string('author_url', 250);
 
-  knex.schema.createTable('comments', table => {
-    table.bigIncrements('id').primary().unsigned();
-    table.text('content');
-    table.biginteger('user_id').unsigned().index().references('id').inTable('users');
-    table.biginteger('article_id').unsigned().index().references('id').inTable('articles');
-  }),
+  table.string('header_title', 250);
+  table.text('header_image_url');
+  table.text('header_summary');
 
-  knex.schema.createTable('articles', table => {
-    table.bigIncrements('id').primary().unsigned();
-    table.string('slug', 250).index();
+  table.enum('category', constants.categories);
 
-    table.string('title', 250);
-    table.string('author_name', 250).defaultTo(constants.default.authorName);
-    table.string('author_url', 250);
+  // for recipes
+  table.text('procedure');
+  table.text('ingredients');
+  table.integer('difficulty');
+  table.integer('serves');
 
-    table.text('header_image_url');
-    table.text('header_text', 250);
-    table.text('header_summary');
+  // for others
+  table.text('body');
 
-    table.enum('category', constants.categories);
+  table.timestamps();
+})
 
-    // for recipes
-    table.text('procedure');
-    table.text('ingredients');
-    table.integer('difficulty');
-    table.integer('serves');
+.createTable('users', table => {
+  table.bigIncrements('id').primary().unsigned();
 
-    // for others
-    table.text('body');
+  table.string('name', 50);
+  table.string('email', 100);
+  table.string('password', 255);
+  table.enum('type', constants.userTypes).defaultTo(constants.default.userType);
 
-    table.timestamps();
-  }),
-]);
+  table.timestamps();
+})
 
-exports.down = (knex, Promise) => Promise.all([
-  knex.schema.dropTable('users'),
-  knex.schema.dropTable('articles'),
-  knex.schema.dropTable('collections'),
-  knex.schema.dropTable('tags'),
-  knex.schema.dropTable('comments'),
-]);
+.createTable('tags', table => {
+  table.string('name', 50).primary();
+})
+
+.createTable('tags_articles', table => {
+  table.string('tag', 50).references('name').inTable('tags');
+  table.biginteger('article_id').unsigned().references('id').inTable('articles');
+})
+
+.createTable('collections', table => {
+  table.bigIncrements('id').primary().unsigned();
+
+  table.string('name', 50);
+
+  table.biginteger('user_id').unsigned().references('id').inTable('users');
+  table.timestamps();
+}) 
+
+.createTable('collections_articles', table => {
+  table.biginteger('collection_id').unsigned().references('id').inTable('collections');
+  table.biginteger('article_id').unsigned().references('id').inTable('articles');
+})
+
+.createTable('comments', table => {
+  table.biginteger('user_id').unsigned().references('id').inTable('users');
+
+  table.text('content');
+
+  table.biginteger('article_id').unsigned().references('id').inTable('articles');
+
+  table.timestamps();
+});

@@ -1,5 +1,6 @@
 // Update with your config settings.
-import constants from '../../constants';
+'use strict';
+let constants = require('../../constants');
 
 module.exports = {
   development: {
@@ -13,7 +14,7 @@ module.exports = {
   },
   production: {
     client: 'postgresql',
-    connection: constants.produciton.database.connection,
+    connection: constants.production.database.connection,
     pool: {
       min: 2,
       max: 10

@@ -1,4 +1,4 @@
 {
-  "name": "bookshelf",
-  "main": "bookshef.js"
+  "name": "db",
+  "main": "db.js"
 }
