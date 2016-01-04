@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default class Footer extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     return (
       <footer className="container-fluid footer">

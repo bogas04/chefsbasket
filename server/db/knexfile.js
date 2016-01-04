@@ -1,7 +1,7 @@
 // Update with your config settings.
+import constants from '../../constants';
 
 module.exports = {
-
   development: {
     client: 'postgresql',
     connection: {
@@ -11,10 +11,9 @@ module.exports = {
       password: '_)(*&^%$#@!'
     }
   },
-
   production: {
     client: 'postgresql',
-    connection: 'postgres://hfygdzhpnwtnmn:ychmR53PoD-RNJGptJdcYOtEmT@ec2-54-195-252-202.eu-west-1.compute.amazonaws.com:5432/dfqmesgbjh4pnl',
+    connection: constants.produciton.database.connection,
     pool: {
       min: 2,
       max: 10
@@ -23,5 +22,4 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   }
-
 };

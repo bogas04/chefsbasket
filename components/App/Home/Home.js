@@ -6,6 +6,9 @@ import WouldYouCook from '../../common/WouldYouCook';
 import TrendingTopics from '../../common/TrendingTopics';
 
 export default class Home extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     return (
       <div>

@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import throttle from 'lodash.throttle';
 
 export default class Navigation extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
   componentDidMount () {
     window.onscroll = throttle(() => { 
       let $navbar = document.getElementsByClassName('navbar-wrapper')[0];

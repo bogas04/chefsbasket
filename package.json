@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "gulp & nodemon server --exec babel-node server --presets es2015,react",
-    "start-db": "postgres -D /usr/local/var/postgres -h \"127.0.0.1\""
+    "dev-db": "postgres -D /usr/local/var/postgres -h \"127.0.0.1\""
   },
   "keywords": [],
   "author": "bogas04",
