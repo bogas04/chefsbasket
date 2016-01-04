@@ -37,7 +37,6 @@ gulp.task('react-es2015', cb => (
   gulp.src('components/index.js')
   .pipe(webpackStream(Object.assign({}, webpackConfig, {
     plugins: [...webpackConfig.plugins, 
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': JSON.stringify('production')
@@ -53,7 +52,10 @@ gulp.task('react-es2015', cb => (
 gulp.task('react-es2015-dev', cb => (
   gulp.src('components/index.js')
   .pipe(plumber())
-  .pipe(webpackStream(Object.assign({}, webpackConfig, { watch: true })))
+  .pipe(webpackStream(Object.assign({}, webpackConfig, {
+    plugins: [new webpack.HotModuleReplacementPlugin()].concat(webpackConfig.plugins),
+    watch: true 
+  })))
   .pipe(gulp.dest('client/js/'))
 ));
 
