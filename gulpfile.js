@@ -59,7 +59,7 @@ gulp.task('react-es2015-dev', cb => (
   gulp.src('components/index.js')
   .pipe(plumber())
   .pipe(webpackStream(Object.assign({}, webpackConfig, {
-    plugins: [new webpack.HotModuleReplacementPlugin()].concat(webpackConfig.plugins),
+    //plugins: [new webpack.HotModuleReplacementPlugin()].concat(webpackConfig.plugins),
     watch: true 
   })))
   .pipe(gulp.dest('client/js/'))
