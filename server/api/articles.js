@@ -25,11 +25,10 @@ router.get('/', (req, res) => {
 
   if(req.query.q) { query = query.where('title', 'like', `%${req.query.q}%`) }
 
-  // TODO: Implement Tag Search Logic
-  if(req.query.tag) { query = query.where(bookshelf.knex.raw(`"${req.query.tag}" in "articles"."tags"`)); }
+  if(req.query.tag) { query = query.where(bookshelf.knex.raw(`'${req.query.tag.toUpperCase()}' = any (tags)`)); }
 
-  query.fetch()
-  .then(e => res.status(200).json({msg: 'found', data: e ? [e] : []}))
+  query.fetchAll()
+  .then(data => res.status(200).json({msg: `found ${data.length} results`, data }))
   .catch(data => {
     console.log(data);
     res.status(500).json({msg: 'some error occured', data })
@@ -41,6 +40,9 @@ router.post('/', (req, res) => {
   let slug = article.slug;
 
   let articleStr = JSON.stringify(Object.assign({}, article, { header_image: '' }));
+
+  // Fix tags
+  article.tags = article.tags.map(t => t.toUpperCase().trim());
 
   // Check for profanity, child abuse etc words
   if (constants.profaneWords.reduce((has, word) => has = has || articleStr.includes(word), false)) {
