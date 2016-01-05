@@ -5,8 +5,8 @@ let constants = require('../../../constants');
 exports.down = (knex, Promise) => knex.schema
 .dropTable('users')
 .dropTable('articles')
+.dropTable('collections_articles')
 .dropTable('collections')
-.dropTable('tags')
 .dropTable('comments');
 
 exports.up = (knex, Promise) => knex.schema
@@ -26,15 +26,17 @@ exports.up = (knex, Promise) => knex.schema
 
   table.enum('category', constants.categories);
 
-  // for recipes
-  table.text('procedure');
-  table.text('ingredients');
-  table.integer('difficulty');
-  table.integer('serves');
+  // TODO: Use JSONb for content
+    // for recipes
+    table.text('procedure');
+    table.text('ingredients');
+    table.integer('difficulty');
+    table.integer('serves');
 
-  // for others
-  table.text('body');
+    // for others
+    table.text('body');
 
+  table.specificType('tags', 'varchar(50)[]');
   table.timestamps();
 })
 
@@ -49,19 +51,10 @@ exports.up = (knex, Promise) => knex.schema
   table.timestamps();
 })
 
-.createTable('tags', table => {
-  table.string('name', 50).primary();
-})
-
-.createTable('tags_articles', table => {
-  table.string('tag', 50).references('name').inTable('tags');
-  table.biginteger('article_id').unsigned().references('id').inTable('articles');
-})
-
 .createTable('collections', table => {
   table.bigIncrements('id').primary().unsigned();
 
-  table.string('name', 50);
+  table.string('name', 50).defaultTo('like');
 
   table.biginteger('user_id').unsigned().references('id').inTable('users');
   table.timestamps();

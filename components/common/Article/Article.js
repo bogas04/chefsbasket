@@ -14,7 +14,7 @@ export default class Article extends React.Component {
     super(p);
     this.state = { data: this.props.default || <h1 className="text-center"> Loading ... </h1> };
     if(!this.props.loadStatic && ExEnv.canUseDOM) { // dynamic loading/client loading
-      fetch(`/articles.json?id=${this.props.params.id}`)
+      fetch(`/articles.json/${this.props.params.slug}`)
       .then(data => data.json())
       .then(data => this.setState({ data: this.fillIn(data.data.category, data.data)}))
       .catch(e => this.setState({ data: <NotFound /> }));
@@ -32,8 +32,8 @@ export default class Article extends React.Component {
   fillIn(layout, data) {
     return (
       <div>
-        <Banner title={data.header.title} image={data.header.image} >
-          <p>{data.header.summary}</p>
+        <Banner title={data.header_title} image={data.header_image_url} >
+          <p>{data.header_summary}</p>
           {
             layout === 'recipes' && (
               <div>
@@ -69,7 +69,7 @@ export default class Article extends React.Component {
             </Content>
             )
         }
-        <Related _for={this.props.params ? this.props.params.id : null}/>
+        <Related _for={this.props.params ? this.props.params.slug : null}/>
       </div>
     );
   }

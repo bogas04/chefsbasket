@@ -22,11 +22,11 @@ export default class TrendingTopics extends React.Component {
       <div className="container">
         <h1 style={{fontFamily: 'chardons', fontWeight: '100', textAlign: 'center', marginBottom: '20px'}}>Trending Topics</h1>
         {
-          this.state.topics.map(t => (
+          this.state.topics.length > 0 ?  this.state.topics.map(t => (
             <div className="col-md-6" key={t.slug}>
               <Topic 
-                image={t.header.image}
-                author={t.author.name}
+                image={t.header_image_url}
+                author={t.author_name}
                 url={`/${t.category}/${t.slug}`}
                 likes={t.likes}
                 date={t.created_at}
@@ -34,8 +34,10 @@ export default class TrendingTopics extends React.Component {
                 {t.title}
               </Topic>
             </div>
-            ))
-        }
+            )) : (
+            <h4 className="text-center"> Nothing to show </h4>
+            )
+        } 
       </div>
     );
   }
@@ -64,4 +66,3 @@ class Topic extends React.Component {
     );
   }
 }
-

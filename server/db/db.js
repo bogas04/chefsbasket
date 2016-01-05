@@ -5,13 +5,6 @@ let bookshelf = require('bookshelf')(knex);
 let data = {
   bookshelf,
 
-  // Models
-  // M:N - Article has many tags, a tag can be in many Articles
-  Tags: bookshelf.Model.extend({
-    tableName: 'tags',
-    article: function() { this.belongsToMany(data.Article) },
-  }),
-
   // 1:N - Article has many comments, a comment can be in only one Article
   Comments: bookshelf.Model.extend({
     tableName: 'comments',
@@ -37,13 +30,11 @@ let data = {
     comments: function() { this.hasMany(data.Comments) },
   }),
 
-  // N:M Article has many tags, a tag can be in many articles
   // N:M Article can be in many collections, a collection can have many Articles
   // 1:N Article has many comments, a comment can be in only one article
   Article: bookshelf.Model.extend({
     tableName: 'articles',
     hasTimestamps: true,
-    tags: function() { this.belongsToMany(data.Tags) },
     collections: function() { this.belongsToMany(data.Collections) },
     comments: function() { this.hasMany(data.Comments) },
   }),

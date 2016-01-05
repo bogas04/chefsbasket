@@ -29,20 +29,20 @@ module.exports = (
       <IndexRoute component={Home} />
       <Route path="search" component={Search}/>
       <Route path="recipes" component={Recipes} >
-        <Route path=":id" component={Article}/>
+        <Route path=":slug" component={Article}/>
       </Route>
       <Route path="ingredients" component={Ingredients}>
-        <Route path=":id" component={Article}/>
+        <Route path=":slug" component={Article}/>
       </Route>
       <Route path="recipekit" component={RecipeKit} />
       <Route path="travel" component={Travel}>
-        <Route path=":id" component={Article}/>
+        <Route path=":slug" component={Article}/>
       </Route>
       <Route path="entertainment" component={Entertainment}>
-        <Route path=":id" component={Article}/>
+        <Route path=":slug" component={Article}/>
       </Route>
       <Route path="people" component={People}>
-        <Route path=":id" component={Article}/>
+        <Route path=":slug" component={Article}/>
       </Route>
       <Route path="login" component={Login}/>
     </Route>

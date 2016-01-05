@@ -10,15 +10,11 @@ export default class AddArticle extends React.Component {
       data: {
         title: '',
         slug: '',
-        header: {
-          image: '',
-          summary: '',
-          title: '',
-        },
-        author: {
-          name: 'STAFF EDITOR',
-          url: '',
-        },
+        header_image: '',
+        header_summary: '',
+        header_title: '',
+        author_name: 'STAFF EDITOR',
+        author_url: '',
         body: '',
         ingredients: '',
         procedure: '',
@@ -58,13 +54,13 @@ export default class AddArticle extends React.Component {
       switch(type) {
         case 'tags':
           // Unique elements
-          data.tags = [...new Set(e.currentTarget.value.split(',').map(e => e.toUpperCase()))];
+          data.tags = [...new Set(e.currentTarget.value.split(',').map(e => e.toUpperCase().trim()))];
           break;
-        case 'header.image':
+        case 'header_image':
           let fr = new FileReader();
           fr.onload = _e => {
             let { data } = this.state;
-            data.header.image = _e.target.result;
+            data.header_image = _e.target.result;
             this.setState({ data });
           };
           fr.readAsDataURL(e.currentTarget.files[0]);
@@ -89,19 +85,19 @@ export default class AddArticle extends React.Component {
   }
   render() {
     let form = (
-      <form name="add-article" id="add-article" onSubmit={e => this.submit(e)} action="/articles.json" method="post">
+      <form name="add-article"  onSubmit={e => this.submit(e)} action="/articles.json" method="post">
 
         <div className="form-group">
           <label>Header Details</label>
           <div className="row">
             <div className="col-md-4">
-              <input onChange={e => this.update('header.image', e)} name="header.image" id="header.image" type="file" accept="image/*" className="form-control" />
+              <input onChange={e => this.update('header_image', e)} name="header_image"  type="file" accept="image/*" className="form-control" />
               <div className="help-block">Header image 2000x500 px recommended</div>
             </div>
             <div className="col-md-8">
-              <input onChange={e => this.update('header.title', e)} placeholder="Header Title" className="form-control" name="header.title" id="header.title" type="text" />
-              <textarea onChange={e => this.update('header.summary', e)} placeholder="Header Summary" className="form-control"
-                name="header.summary" id="header.summary" rows="3"></textarea>
+              <input onChange={e => this.update('header_title', e)} placeholder="Header Title" className="form-control" name="header_title"  type="text" />
+              <textarea onChange={e => this.update('header_summary', e)} placeholder="Header Summary" className="form-control"
+                name="header_summary"  rows="3"></textarea>
             </div>
           </div>
         </div>
@@ -114,7 +110,7 @@ export default class AddArticle extends React.Component {
           <div className="row">
             <div className="col-md-6">
               <label> Category </label>
-              <select onChange={e => this.update('category', e)} className="form-control" id="category" name="category">
+              <select onChange={e => this.update('category', e)} className="form-control"  name="category">
                 <option value="recipes">Recipes</option>
                 <option value="ingredients">Ingredients</option>
                 <option value="people">People</option>
@@ -124,18 +120,18 @@ export default class AddArticle extends React.Component {
             </div>
             <div className="col-md-6">
               <label> Tags </label>
-              <input onChange={e => this.update('tags', e)} className="form-control" type="text" placeholder="Tag1,Tag2,..." name="tags" id="tags"/>
+              <input onChange={e => this.update('tags', e)} className="form-control" type="text" placeholder="Tag1,Tag2,..." name="tags" />
             </div>
           </div>
           {
             this.state.data.category === 'recipes' && <div className="row">
               <div className="col-md-6">
                 <label> Serves </label>
-                <input id="serves" onChange={e => this.update('serves', e)} className="form-control" type="text" placeholder="Serves" name="serves"/>
+                <input  onChange={e => this.update('serves', e)} className="form-control" type="text" placeholder="Serves" name="serves"/>
               </div>
               <div className="col-md-6">
                 <label> Difficulty </label>
-                <input id="difficulty" onChange={e => this.update('difficulty', e)} className="form-control" type="text" placeholder="Difficulty" name="difficulty"/>
+                <input  onChange={e => this.update('difficulty', e)} className="form-control" type="text" placeholder="Difficulty" name="difficulty"/>
               </div>
             </div>}
           </div>
@@ -144,10 +140,10 @@ export default class AddArticle extends React.Component {
             <label>Author Details</label>
             <div className="row">
               <div className="col-md-6">
-                <input id="author.name" onChange={e => this.update('author.name', e)} className="form-control" type="text" placeholder="Author" name="author.name"/>
+                <input  onChange={e => this.update('author_name', e)} className="form-control" type="text" placeholder="Author" name="author_name"/>
               </div>
               <div className="col-md-6">
-                <input id="author.url" onChange={e => this.update('author.url', e)} className="form-control" type="text" placeholder="Author URL" name="author.url"/>
+                <input  onChange={e => this.update('author_url', e)} className="form-control" type="text" placeholder="Author URL" name="author_url"/>
               </div>
             </div>
           </div>
@@ -160,19 +156,19 @@ export default class AddArticle extends React.Component {
                   <div className="row">
                     <div className="col-md-4">
                       <label> Ingredients </label>
-                      <textarea id="ingredients" onChange={e => this.update('ingredients', e)} className="form-control" rows="10"
+                      <textarea  onChange={e => this.update('ingredients', e)} className="form-control" rows="10"
                         placeholder="* Onions &#13;&#10;* Bell pepper ..." name="ingredients"></textarea>
                     </div>
                     <div className="col-md-8">
                       <label> Procedure </label>
-                      <textarea id="procedure" onChange={e => this.update('procedure', e)} className="form-control" rows="10"
+                      <textarea  onChange={e => this.update('procedure', e)} className="form-control" rows="10"
                         placeholder="# Step 1 &#13;&#10;Saute chopped onions" name="procedure"></textarea>
                     </div>
                   </div>
                   ) : (
                   <div className="form-group">
                     <label> Article body </label>
-                    <textarea id="body" onChange={e => this.update('body', e)} className="form-control" rows="10"
+                    <textarea  onChange={e => this.update('body', e)} className="form-control" rows="10"
                       placeholder="Content" name="body"></textarea>
                   </div>
                   )
@@ -189,25 +185,16 @@ export default class AddArticle extends React.Component {
           {form}
         </Content>
 
-        <h1 id="preview"> Live Render </h1>
+        <h1 > Live Render </h1>
 
         <Article 
           loadStatic={true}
-          data={
-            Object.assign(
-              {},
-              this.state.data, {
-                header: {
-                  title: this.state.data.header.title,
-                  summary: this.state.data.header.summary,
-                  image :this.state.imagePreview
-                }}
-            )}
-            default={<h3> Enter Details of the Post </h3>}
-          />
+          data={ Object.assign({}, this.state.data, { header_image: this.state.imagePreview }) }
+          default={<h3> Enter Details of the Post </h3>}
+        />
 
-        <a href="#" className="btn">Continue Editing</a>
-      </div>
+      <a href="#" className="btn">Continue Editing</a>
+    </div>
     );
   }
 }

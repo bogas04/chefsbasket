@@ -17,9 +17,9 @@ export default class Related extends React.Component {
         related: data.data.map(e => (
           <div className="col-md-4" key={e.slug} >
             <Link to={`/${e.category}/${e.slug}`} style={{textDecoration: 'none'}}>
-              <ImageWrapper src={e.header.image} alt={e.title} height='260px' />
+              <ImageWrapper src={e.header_image_url} alt={e.title} height='260px' />
               <h2 style={{fontWeight: 100, textAlign: 'center'}} >{e.title}</h2>
-              <h4 style={{fontWeight: 100, textAlign: 'center'}} >{e.author.name}</h4>
+              <h4 style={{fontWeight: 100, textAlign: 'center'}} >{e.author_name}</h4>
             </Link>
           </div>
         ))

@@ -1,62 +1,44 @@
 import express from 'express';
 import constants from '../../constants';
 
-let db = require('../db');
+let { bookshelf, Article, User, Comments, Collections } = require('../db');
 let router = express.Router();
 
+router.get('/:slug', (req, res) => {
+  let { slug } = req.params;
+  Article.where({slug}).fetch()
+  .then(data => res.status(200).json({msg: 'found', data}))
+  .catch(data => res.status(500).json({msg: 'some error occured', data }));
+});
+
 router.get('/', (req, res) => {
+
   if (req.query.category && constants.categories.indexOf(req.query.category) < 0) {
     return res.status(503).json({
       msg: `Unknown category, it must be one of ${constants.categories.map(e => "'" + e + "'").join(', ')}`
     });
   }
 
-  let whereObj = {};
+  let query = Article;
 
-  if(req.query.category) whereObj.category = req.query.category;
+  if(req.query.category) { query = query.where({category: req.query.category }); }
 
-  if(req.query.q) { 
-    // TODO: Implement Search Logic
-    //whereObj. = req.query.category;
-  }
+  if(req.query.q) { query = query.where('title', 'like', `%${req.query.q}%`) }
 
-  if(req.query.tag) {
-    // TODO: Implement Tag Search Logic
-    //whereOb
-  }
+  // TODO: Implement Tag Search Logic
+  if(req.query.tag) { query = query.where(bookshelf.knex.raw(`"${req.query.tag}" in "articles"."tags"`)); }
 
-  db.Article
-  .where(whereObj)
-  //.fetch({withRelated: ['tags']})
-  .fetch()
-  .then(e => { console.log(e); res.status(200).json({msg: 'found', data: [e] || [] }); })
-  .catch(e => { console.log(e); res.status(500).json({msg: 'some error occured', data: [e] || [] }); });
+  query.fetch()
+  .then(e => res.status(200).json({msg: 'found', data: e ? [e] : []}))
+  .catch(data => {
+    console.log(data);
+    res.status(500).json({msg: 'some error occured', data })
+  });
 });
-
-function getImageAttributes(base64String) {
-  let matches = base64String.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-
-  if (matches.length !== 3) { return { error: true, msg: `Invalid image`}; }
-
-  if (constants.imageExtensions.indexOf(matches[1]) < 0) { return { error: true, msg: `Invalid image format`}; }
-
-  let ext = '.' + matches[1].replace('image/', '');
-
-  return { error: false, ext, imageBody: matches[2] };
-}
 
 router.post('/', (req, res) => {
   let article = req.body;
-
-  // TODO: just bear with this
-  article.header_image = article.header.image;
-  article.header_title = article.header.title;
-  article.header_summary = article.header.summary;
-  article.author_name = article.author.name;
-  article.author_url = article.author.url;
-
-  delete article.header;
-  delete article.author;
+  let slug = article.slug;
 
   let articleStr = JSON.stringify(Object.assign({}, article, { header_image: '' }));
 
@@ -65,7 +47,7 @@ router.post('/', (req, res) => {
     return res.status(400).json({msg : `Article contains profane words`});
   }
 
-  // Check if image exists
+  // TODO: Check if all fields are filled
   if (article.header_image.length === 0) { return res.status(400).json({msg : `Upload an image`}); }
 
   // Check image format
@@ -74,7 +56,7 @@ router.post('/', (req, res) => {
   if(d.error) { return res.status(400).json({ msg: d.msg }); }
 
   // See if slug matches any other
-  db.Article.where({slug: article.slug}).count('slug')
+  Article.where({slug}).count('slug')
   .then(e => {
     if(e === 1) {
       let d = new Date();
@@ -90,15 +72,25 @@ router.post('/', (req, res) => {
       // Store address of image in object
       article.header_image_url= `${constants.public.image.url}${article.slug}${d.ext}`;
       delete article.header_image;
-      // TODO: Add tags if not present, add to relation as well. 
-      delete article.tags;
 
-      new db.Article(article).save()
+      new Article(article).save()
       .then(data => res.status(200).json({msg: 'Article saved', data}))
-      .then(err => res.status(500).json({msg: 'Article saved', err}))
+      .then(err => res.status(500).json({msg: 'Article couldn\'t be saved', err}))
     });
   })
   .catch(e => res.status(500).json(e));
 });
+
+function getImageAttributes(base64String) {
+  let matches = base64String.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+
+  if (matches.length !== 3) { return { error: true, msg: `Invalid image`}; }
+
+  if (constants.imageExtensions.indexOf(matches[1]) < 0) { return { error: true, msg: `Invalid image format`}; }
+
+  let ext = '.' + matches[1].replace('image/', '');
+
+  return { error: false, ext, imageBody: matches[2] };
+}
 
 module.exports = router;

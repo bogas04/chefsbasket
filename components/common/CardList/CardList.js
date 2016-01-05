@@ -67,11 +67,11 @@ export default class CardList extends React.Component {
       if(this.state.cardData.length > 0) {
         cards = this.state.cardData.map(e => (
           <Card
-            image={e.header.image}
+            image={e.header_image_url}
             url={`/${e.category}/${e.slug}`}
             title={e.title}
             key={e.title + Math.random()}>
-            {e.header.summary}
+            {e.header_summary}
           </Card>
         )) ;
       } else {
