@@ -38,7 +38,7 @@ gulp.task('stylus', cb => (
   }))
   .pipe(autoprefixer({ browsers: ['> 1%', 'IE 7']}))
   .pipe(rename('main.css'))
-  .pipe(gulp.dest('client/css'));
+  .pipe(gulp.dest('client/css'))
 ));
 
 gulp.task('stylus-watch', cb => (
