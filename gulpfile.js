@@ -12,14 +12,13 @@ const runSequence = require('run-sequence');
 const webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('default', cb => runSequence(['dev-server', 'stylus', 'react-es2015-dev']) );
-
+gulp.task('default', cb => runSequence(['dev-server', 'stylus-watch', 'react-es2015-dev']) );
 gulp.task('production', cb => runSequence( ['server', 'bower', 'stylus', 'react-es2015'] ) );
 
 gulp.task('server', shell.task([
   'node_modules/.bin/babel-node server',
   'node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production',
-]);
+]));
 
 gulp.task('dev-server', cb => nodemon({
   script: 'server',
@@ -31,9 +30,7 @@ gulp.task('bower', cb => (
   .pipe(gulp.dest('./client/components/'))
 ));
 
-
-gulp.task('stylus', cb => {
-  gulp.watch('styl/main.styl', ['stylus']);
+gulp.task('stylus', cb => (
   gulp.src('styl/main.styl')
   .pipe(plumber())
   .pipe(stylus({
@@ -42,8 +39,11 @@ gulp.task('stylus', cb => {
   .pipe(autoprefixer({ browsers: ['> 1%', 'IE 7']}))
   .pipe(rename('main.css'))
   .pipe(gulp.dest('client/css'));
-});
+));
 
+gulp.task('stylus-watch', cb => (
+  gulp.watch('styl/main.styl', ['stylus']);
+));
 
 gulp.task('react-es2015', cb => (
   gulp.src('components/index.js')
