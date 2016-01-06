@@ -1,4 +1,10 @@
+import bcrypt from 'bcrypt';
+
 module.exports = {
+  password: {
+    hash: password => bcrypt.hashSync(password, 10),
+      compare: (password, hash) => bcrypt.compareSync(password, hash),
+  },
   categories: ['recipes', 'people', 'entertainment', 'travel', 'ingredients'],
   userTypes: ['admin', 'editor', 'author', 'normal'],
   'default': {

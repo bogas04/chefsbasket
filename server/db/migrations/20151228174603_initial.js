@@ -3,11 +3,11 @@
 let constants = require('../../../constants');
 
 exports.down = (knex, Promise) => knex.schema
-.dropTable('users')
-.dropTable('articles')
 .dropTable('collections_articles')
 .dropTable('collections')
-.dropTable('comments');
+.dropTable('comments')
+.dropTable('users')
+.dropTable('articles');
 
 exports.up = (knex, Promise) => knex.schema
 
@@ -26,29 +26,30 @@ exports.up = (knex, Promise) => knex.schema
 
   table.enum('category', constants.categories);
 
-  // TODO: Use JSONb for content
-    // for recipes
-    table.text('procedure');
-    table.text('ingredients');
-    table.integer('difficulty');
-    table.integer('serves');
+  // TODO: Consider JSONb for content
+  // for recipes
+  table.text('procedure');
+  table.text('ingredients');
+  table.integer('difficulty');
+  table.integer('serves');
 
-    // for others
-    table.text('body');
+  // for others
+  table.text('body');
 
   table.specificType('tags', 'varchar(50)[]');
+  table.specificType('photos', 'varchar(250)[]');
   table.timestamps();
 })
 
 .createTable('users', table => {
+  table.string('name', 100);
+  table.string('password', 255).notNullable();
   table.bigIncrements('id').primary().unsigned();
-
-  table.string('name', 50);
-  table.string('email', 100);
-  table.string('password', 255);
-  table.enum('type', constants.userTypes).defaultTo(constants.default.userType);
+  table.string('email', 100).notNullable().unique();
+  table.string('username', 50).notNullable().unique().index();
 
   table.timestamps();
+  table.enum('type', constants.userTypes).defaultTo(constants.default.userType);
 })
 
 .createTable('collections', table => {

@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "dev-db": "postgres -D /usr/local/var/postgres -h \"127.0.0.1\"",
-    "knex": "knex migrate:latest --knexfile=server/db/knexfile.js"
+    "knex": "node_modules/.bin/knex migrate:latest --knexfile=server/db/knexfile.js",
+    "knex-rollback": "node_modules/.bin/knex migrate:rollback --knexfile=server/db/knexfile.js"
   },
   "keywords": [],
   "author": "bogas04",
@@ -30,6 +31,7 @@
     "gulp-nodemon": "^2.0.6",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.1",
     "gulp-stylus": "^2.1.2",
     "history": "^1.17.0",
     "imports-loader": "^0.6.5",

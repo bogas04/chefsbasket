@@ -7,7 +7,7 @@ let router = express.Router();
 function addToCollection(user_id, article_id, name = 'like') {
   // TODO: 
   // see if collection exists
-  // if doesn't then ad to collection
+  // if doesn't then add to collection
   // now add the relation to collections_articles
 }
 

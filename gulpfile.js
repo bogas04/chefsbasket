@@ -4,6 +4,7 @@ const gulp = require('gulp');
 const webpack = require('webpack');
 const bower = require('gulp-bower');
 const stylus = require('gulp-stylus');
+const shell = require('gulp-shell);
 const nodemon = require('gulp-nodemon');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
@@ -13,7 +14,12 @@ const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', cb => runSequence(['dev-server', 'stylus', 'react-es2015-dev']) );
 
-gulp.task('production', cb => runSequence( ['bower', 'stylus', 'react-es2015'] ) );
+gulp.task('production', cb => runSequence( ['server', 'bower', 'stylus', 'react-es2015'] ) );
+
+gulp.task('server', shell.task([
+  'node_modules/.bin/babel-node server',
+  'node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production',
+]);
 
 gulp.task('dev-server', cb => nodemon({
   script: 'server',

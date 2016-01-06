@@ -11,9 +11,11 @@ import RecipeKit from './App/RecipeKit';
 import Ingredients from './App/Ingredients';
 import Recipes from './App/Recipes';
 import Login from './App/Login';
+import Signup from './App/Signup';
 import Search from './App/Search';
 
 import Article from './common/Article';
+import NotFound from './NotFound';
 
 import Admin from './Admin';
 import AdminHome from './Admin/AdminHome';
@@ -45,6 +47,8 @@ module.exports = (
         <Route path=":slug" component={Article}/>
       </Route>
       <Route path="login" component={Login}/>
+      <Route path="signup" component={Signup}/>
+      <Route path="*" component={NotFound} />
     </Route>
   </Router>
 );
