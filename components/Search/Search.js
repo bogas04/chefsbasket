@@ -1,6 +1,6 @@
 import React from 'react';
-import CardList from '../../common/CardList';
-import Content from '../../common/Content';
+import CardList from '../common/CardList';
+import Content from '../common/Content';
 
 export default class Search extends React.Component {
   render() {

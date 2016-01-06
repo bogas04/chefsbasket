@@ -1,6 +1,6 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
-import Content from '../../common/Content';
+import Content from '../common/Content';
 
 export default class Signup extends React.Component {
   constructor(p) {

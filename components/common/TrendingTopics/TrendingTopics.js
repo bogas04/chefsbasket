@@ -7,15 +7,16 @@ export default class TrendingTopics extends React.Component {
   constructor(p) {
     super(p);
     this.state = { topics: [] };
-    if(ExEnv.canUseDOM) {
-      fetch('/articles.json?trending=1')
-      .then(data => data.json())
-      .then(data => this.setState({ topics: data.data.slice(0, 2) }));
-    } else {
+    if(!ExEnv.canUseDOM) {
       // server side rendering
       // Option 1: Consume the REST API Synchronously.
       // Option 2: Use the function that API route uses. (much better approach)
     }
+  }
+  componentDidMount() {
+    fetch('/articles.json?trending=1')
+    .then(data => data.json())
+    .then(data => this.setState({ topics: data.data.slice(0, 2) }));
   }
   render() {
     return (

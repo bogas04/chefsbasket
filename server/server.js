@@ -18,11 +18,21 @@ passport.use(require('./passport-local'));
 
 // Authorization
 app.post('/signup.json', require('./api/signup'));
-app.get('/logout', (req, res) => console.log(req));
-app.post('/login', passport.authenticate('local', { successRedirect: '/account', failureRedirect: '/login' }));
+
+app.post('/logout', (req, res) => {
+  req.logout();
+  req.redirect('/');
+});
+
+app.post('/login.json', passport.authenticate('local', { session: false }), (req, res) => {
+  let user = req.user.toJSON();
+  delete user.password;
+  res.status(200).json({ user })
+});
 
 // API
-['user', 'articles', 'exists'].forEach(e => app.use(`/${e}.json`, require(`./api/${e}`)));
+['user', 'articles', 'exists']
+.forEach(e => app.use(`/${e}.json`, require(`./api/${e}`)));
 
 // Static Files + React
 app.use('/', express.static(__dirname + '/../client'));

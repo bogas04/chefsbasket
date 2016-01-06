@@ -3,9 +3,6 @@ import { Link } from 'react-router';
 import throttle from 'lodash.throttle';
 
 export default class Navigation extends React.Component {
-  shouldComponentUpdate() {
-    return false;
-  }
   componentDidMount () {
     window.onscroll = throttle(() => { 
       let $navbar = document.getElementsByClassName('navbar-wrapper')[0];
@@ -69,7 +66,7 @@ function UpperHeader ({ loggedIn, hideSearch }) {
     <div className="upper-header text-center">
       <div className="container-fluid">
         <div className="col-md-4" style={{paddingTop: '40px' }}>
-          <Link to={loggedIn ? `/logout` : `/login`} style={{color: '#252525', textTransform: 'uppercase'}}> {loggedIn?`logout`:`login`}</Link>
+          <Link to={loggedIn ? `/account` : `/login`} style={{color: '#252525', textTransform: 'uppercase'}}> {loggedIn ? `account` : `login`}</Link>
         </div>
         <div className="col-md-4">
           <Link to={`/`}><img src="/img/logo_black.png" /></Link>

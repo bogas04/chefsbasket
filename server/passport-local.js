@@ -4,12 +4,12 @@ import passport from 'passport';
 import { User } from './db';
 
 passport.serializeUser((user, done) => {
-  done(null, user.toJSON());
+  done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  User.where({ username }).fetch()
-  .then(user => done(null, user));
+  User.where({ id: user.id }).fetch()
+  .then(u => done(null, u));
 });
 
 module.exports = new Strategy({ usernameField: 'username', passwordField: 'password' },(username, password, done) => {

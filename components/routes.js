@@ -10,9 +10,12 @@ import Travel from './App/Travel';
 import RecipeKit from './App/RecipeKit';
 import Ingredients from './App/Ingredients';
 import Recipes from './App/Recipes';
-import Login from './App/Login';
-import Signup from './App/Signup';
-import Search from './App/Search';
+
+import Account from './Account';
+import Login from './Login';
+import Logout from './Logout';
+import Signup from './Signup';
+import Search from './Search';
 
 import Article from './common/Article';
 import NotFound from './NotFound';
@@ -21,6 +24,12 @@ import Admin from './Admin';
 import AdminHome from './Admin/AdminHome';
 import AddArticle from './Admin/AddArticle';
 
+import auth from './auth';
+
+function requireAuth(nextState, replaceState) {
+  if (!auth.loggedIn())
+    replaceState({ nextPathname: nextState.location.pathname }, '/login')
+}
 module.exports = (
   <Router>
     <Route path="admin" component={Admin}>
@@ -47,6 +56,8 @@ module.exports = (
         <Route path=":slug" component={Article}/>
       </Route>
       <Route path="login" component={Login}/>
+      <Route path="logout" component={Logout}/>
+      <Route path="account" component={Account} onEnter={requireAuth}/>
       <Route path="signup" component={Signup}/>
       <Route path="*" component={NotFound} />
     </Route>
