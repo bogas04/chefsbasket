@@ -23,8 +23,10 @@ Technology stack:
 ```bash
 # Install dependencies
 npm i
-# Fire up build processes
+# In development, fire up build processes and start server by
 gulp
+# In production, Procfile is used which basically calls gulp's production task
+gulp production
 # Now visit http://127.0.0.1:8080
 ```
 
@@ -33,8 +35,8 @@ gulp
 * [ ] Build tracking/logging services
 * [ ] Design Polish, Optimize Components, Database indexes, use `componentShouldUpdate` 
 * [ ] Complete all APIs
-  * [ ] Build up log-in system using passport
   * [ ] Make API usable by an app
+  * [x] Build up log-in system using passport
 * [x] Find a smarter way to store tags of articles (Postgresql arrays?)
 * [x] Refactor components to use snake case instead of deep JSON objects (eg: `header_title` instead of `header.title`)
 * [x] Use some file system for assets of dynamic data (using `client/public` for now)

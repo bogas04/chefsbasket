@@ -13,7 +13,7 @@ const webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', cb => runSequence(['dev-server', 'stylus-watch', 'react-es2015-dev']) );
-gulp.task('production', cb => runSequence( ['server', 'bower', 'stylus', 'react-es2015'] ) );
+gulp.task('production', cb => runSequence(['server', 'bower', 'stylus', 'react-es2015']) );
 
 gulp.task('server', shell.task([
   'node_modules/.bin/babel-node server',
@@ -42,7 +42,7 @@ gulp.task('stylus', cb => (
 ));
 
 gulp.task('stylus-watch', cb => (
-  gulp.watch('styl/main.styl', ['stylus']);
+  gulp.watch('styl/main.styl', ['stylus'])
 ));
 
 gulp.task('react-es2015', cb => (
