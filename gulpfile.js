@@ -4,7 +4,7 @@ const gulp = require('gulp');
 const webpack = require('webpack');
 const bower = require('gulp-bower');
 const stylus = require('gulp-stylus');
-const shell = require('gulp-shell);
+const shell = require('gulp-shell');
 const nodemon = require('gulp-nodemon');
 const rename = require('gulp-rename');
 const plumber = require('gulp-plumber');
@@ -31,9 +31,9 @@ gulp.task('bower', cb => (
   .pipe(gulp.dest('./client/components/'))
 ));
 
-gulp.watch('styl/main.styl', ['stylus']);
 
-gulp.task('stylus', cb => (
+gulp.task('stylus', cb => {
+  gulp.watch('styl/main.styl', ['stylus']);
   gulp.src('styl/main.styl')
   .pipe(plumber())
   .pipe(stylus({
@@ -41,8 +41,8 @@ gulp.task('stylus', cb => (
   }))
   .pipe(autoprefixer({ browsers: ['> 1%', 'IE 7']}))
   .pipe(rename('main.css'))
-  .pipe(gulp.dest('client/css'))
-));
+  .pipe(gulp.dest('client/css'));
+});
 
 
 gulp.task('react-es2015', cb => (
