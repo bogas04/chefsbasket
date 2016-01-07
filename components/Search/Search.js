@@ -7,7 +7,7 @@ export default class Search extends React.Component {
     let { query } = this.props.location;
     return (
       <Content>
-        <h1> Showing results for <code>{query.q}</code></h1>
+        <h1> Showing results for <code>{query.q || '#' + query.tag}</code></h1>
         <CardList dataSource={
           query.tag ? 
             `articles.json?tag=${query.tag}` :

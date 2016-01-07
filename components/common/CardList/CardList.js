@@ -2,35 +2,29 @@
 
 import React from 'react';
 import TrendingTopics from '../TrendingTopics';
+import ImageWrapper from '../ImageWrapper';
 import ExEnv from 'fbjs/lib/ExecutionEnvironment';
+import TimeAgo from 'react-timeago';
 
 export class Card extends React.Component {
   constructor(props) {
     super(props);
     this.styles = {
       wrapper: {
-        height: this.props.height || '413px',
+        border: '1px solid grey',
+        backgroundColor: '#fff',
+        height: this.props.height || '364px',
         width: this.props.width || '385px',
         margin: '5px',
         overflow: 'auto',
         float: 'left',
       },
       title: {
-        fontSize: '120%',
-        color: 'grey',
-        padding: '5px',
+        fontWeight: 100,
         textAlign: 'center',
       },
       description: {
         padding: '5px',
-        height: '90px',
-      },
-      imageWrapper: {
-        height: '200px',
-        backgroundColor: 'grey',
-        textAlign: 'center',
-        overflow: 'hidden',
-        boxShadow: '0 0 10px 5px black inset',
       },
     };
   }
@@ -38,10 +32,8 @@ export class Card extends React.Component {
     return (
       <div style={this.styles.wrapper}>
         <a href={this.props.url}>
-          <div style={this.styles.imageWrapper} className="image-wrapper">
-            <img style={{width: '100%'}} src={this.props.image} alt={this.props.title} />
-          </div>
-          <p style={this.styles.title}>{this.props.title}</p>
+          <ImageWrapper height="250px" src={this.props.image} alt={this.props.title} />
+          <h2 style={this.styles.title}>{this.props.title}</h2>
         </a>
         <p style={this.styles.description}>{this.props.children}</p>
       </div>
@@ -70,9 +62,22 @@ export default class CardList extends React.Component {
             image={e.header_image_url}
             url={`/${e.category}/${e.slug}`}
             title={e.title}
-            key={e.title + Math.random()}>
-            {e.header_summary}
-          </Card>
+            key={e.title}>
+            <div className="col-md-4 text-left"><TimeAgo date={e.created_at} formatter={(value, unit, suffix) => {
+              let units = {
+                'second': 's',
+                'minute': 'm',
+                'hour': 'h',
+                'day': 'd',
+                'week': 'w',
+                'month': 'mo',
+                'year': 'y',
+              };
+              return value + units[unit];
+            }}/></div>
+        <div className="col-md-4 text-center">{e.author_name}</div>
+        <div className="col-md-4 text-right">{e.likes}</div>
+      </Card>
         )) ;
       } else {
         cards = (
