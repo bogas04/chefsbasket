@@ -17,7 +17,7 @@ gulp.task('production', cb => runSequence(['server', 'bower', 'stylus', 'react-e
 
 gulp.task('server', shell.task([
   'node_modules/.bin/babel-node server',
-  'node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production',
+  'node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production migrate:latest',
 ]));
 
 gulp.task('dev-server', cb => nodemon({
