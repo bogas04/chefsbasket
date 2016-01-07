@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+var bcrypt = require('bcrypt');
 
 module.exports = {
   password: {
