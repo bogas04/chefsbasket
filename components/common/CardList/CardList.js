@@ -41,7 +41,7 @@ export default class CardList extends React.Component {
       } else {
         cards = (
           <div>
-            <h2> No posts to show :( Browse through trending topics </h2>
+            <h2> No posts to show :( </h2>
           </div>);
       }
     }
