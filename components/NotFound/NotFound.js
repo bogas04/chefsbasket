@@ -1,5 +1,5 @@
 import React from 'react';
-import TrendingTopics from '../common/TrendingTopics';
+import CardList from '../common/CardList';
 import Content from '../common/Content';
 
 export default class NotFound extends React.Component {
@@ -12,7 +12,7 @@ export default class NotFound extends React.Component {
         <div>
           <img width="100%" src="http://hdwallpapers.cat/wallpaper/little_chef_sleeping_cute_vegetables_baby_hd-wallpaper-1847564.jpg" />
         </div>
-        <TrendingTopics />
+        <CardList dataSource="/articles.json?trending=1" title="Trending topics" />
       </Content>
     );
   }

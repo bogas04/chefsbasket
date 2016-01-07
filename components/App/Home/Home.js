@@ -1,9 +1,7 @@
 import React from 'react';
-import Hr from '../../common/Hr';
 import Banner from '../../common/Banner';
 import CardList from '../../common/CardList';
 import WouldYouCook from '../../common/WouldYouCook';
-import TrendingTopics from '../../common/TrendingTopics';
 
 export default class Home extends React.Component {
   shouldComponentUpdate() {
@@ -17,8 +15,7 @@ export default class Home extends React.Component {
           <p><button className="btn btn-default" onClick={() => alert(`You've learnt now`)}>Learn More</button></p>
         </Banner>
         <WouldYouCook />
-        <Hr />
-        <TrendingTopics />
+        <CardList title="Trending Topics" dataSource="/articles.json?trending=1" />
       </div>
     );
   }

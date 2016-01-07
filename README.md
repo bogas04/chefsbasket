@@ -26,7 +26,7 @@ gulp production
 * [ ] Complete all APIs
   * [ ] Make API usable by an app
   * [x] Build up log-in system using passport
-* [ ] Use CardList for all cards (Trending/Related)
+* [x] Use CardList for all cards (Trending/Related)
 * [x] Find a smarter way to store tags of articles (Postgresql arrays?)
 * [x] Refactor components to use snake case instead of deep JSON objects (eg: `header_title` instead of `header.title`)
 * [x] Use some file system for assets of dynamic data (using `client/public` for now)

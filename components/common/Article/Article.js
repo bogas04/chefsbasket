@@ -2,8 +2,7 @@ import React from 'react';
 import Markdown from 'react-remarkable';
 import ExEnv from 'fbjs/lib/ExecutionEnvironment';
 import Banner from '../Banner';
-import Related from '../Related';
-import Hr from '../Hr';
+import CardList from '../CardList';
 import Content from '../Content';
 import Tag from '../Tag';
 
@@ -69,7 +68,7 @@ export default class Article extends React.Component {
             </Content>
             )
         }
-        <Related _for={this.props.params ? this.props.params.slug : null}/>
+        <CardList title="Related topics you might want to read" dataSource={`/articles.json?relatedTo=${this.props.params.slug}`} />
       </div>
     );
   }
