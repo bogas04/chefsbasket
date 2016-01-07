@@ -189,7 +189,7 @@ export default class AddArticle extends React.Component {
 
         <Article 
           loadStatic={true}
-          data={ Object.assign({}, this.state.data, { header_image: this.state.imagePreview }) }
+          data={ Object.assign({}, this.state.data, { header_image_url: this.state.imagePreview }) }
           default={<h3> Enter Details of the Post </h3>}
         />
 

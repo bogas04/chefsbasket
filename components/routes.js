@@ -11,7 +11,6 @@ import RecipeKit from './App/RecipeKit';
 import Ingredients from './App/Ingredients';
 import Recipes from './App/Recipes';
 
-import Account from './Account';
 import Login from './Login';
 import Logout from './Logout';
 import Signup from './Signup';
@@ -20,21 +19,37 @@ import Search from './Search';
 import Article from './common/Article';
 import NotFound from './NotFound';
 
-import Admin from './Admin';
-import AdminHome from './Admin/AdminHome';
-import AddArticle from './Admin/AddArticle';
+import Account from './Account';
+import AccountHome from './Account/AccountHome';
+import Collections from './Account/Collections';
+import AddArticle from './Account/AddArticle';
+import EditArticle from './Account/EditArticle';
+import DeleteArticle from './Account/DeleteArticle';
+import AddUser from './Account/AddUser';
+import EditUser from './Account/EditUser';
+import DeleteUser from './Account/DeleteUser';
 
 import auth from './auth';
 
+function requireNotNormal(nextState, replaceState) {
+  if (!auth.loggedIn() || JSON.parse(localStorage.user).type === 'normal')
+    replaceState({ nextPathname: nextState.location.pathname }, '/account')
+}
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn())
     replaceState({ nextPathname: nextState.location.pathname }, '/login')
 }
 module.exports = (
   <Router>
-    <Route path="admin" component={Admin}>
-      <IndexRoute component={AdminHome} />
-      <Route path="article/add" component={AddArticle} />
+    <Route path="account" component={Account} onEnter={requireAuth}>
+      <IndexRoute component={AccountHome} />
+      <Route path="collections" component={Collections} />
+      <Route path="article/add" component={AddArticle} onEnter={requireNotNormal}/>
+      <Route path="article/:slug/edit" component={EditArticle} onEnter={requireNotNormal}/>
+      <Route path="article/:slug/delete" component={DeleteArticle} onEnter={requireNotNormal}/>
+      <Route path="user/add" component={AddUser} onEnter={requireNotNormal}/>
+      <Route path="user/:username/edit" component={EditUser} onEnter={requireNotNormal}/>
+      <Route path="user/:username/delete" component={DeleteUser} onEnter={requireNotNormal}/>
     </Route>
     <Route path="/" component={App} >
       <IndexRoute component={Home} />
@@ -57,7 +72,6 @@ module.exports = (
       </Route>
       <Route path="login" component={Login}/>
       <Route path="logout" component={Logout}/>
-      <Route path="account" component={Account} onEnter={requireAuth}/>
       <Route path="signup" component={Signup}/>
       <Route path="*" component={NotFound} />
     </Route>

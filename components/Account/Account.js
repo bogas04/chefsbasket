@@ -1,18 +1,21 @@
 import React from 'react';
 import Content from '../common/Content';
-import { Link } from 'react-router';
+import Navigation from '../common/Navigation';
 
 export default class Account extends React.Component {
-  constructor(p) {
-    super(p);
-    this.state = { user: {} };
-  }
   render() {
     return (
       <Content>
-        <h2> You are logged in </h2>
-        <Link to={`/logout`}>Logout</Link>
-        <div>{localStorage && localStorage.user}</div>
+        <Navigation
+          loggedIn={true}
+          hideSearch={true}
+          routes={[
+            {url:`/account/1`, title: `Page 1`},
+            {url:`/account/2`, title: `Page 2`},
+            {url:`/account/3`, title: `Page 3`},
+          ]}
+        />
+        { this.props.children }
       </Content>
     );
   }

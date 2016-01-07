@@ -1,7 +1,0 @@
-{
-  "name": "Admin",
-  "main": "Admin.js",
-  "dependencies": {
-    "throttle-debounce": "^0.1.1"
-  }
-}

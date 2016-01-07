@@ -33,7 +33,7 @@ export default class Article extends React.Component {
     return (
       <div>
         <Banner title={data.header_title} image={data.header_image_url} >
-          <p>{data.header_summary}</p>
+          <p>{data.author_name}</p>
           {
             layout === 'recipes' && (
               <div>
@@ -48,13 +48,13 @@ export default class Article extends React.Component {
             <Content>
               <h2> {data.title} </h2>
               <div className="col-md-4">
-                <h2>Ingredients</h2>
+                <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Ingredients</h1>
                 <Markdown source={data.ingredients} />
                 <h3> Tags </h3>
                 {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
               </div>
               <div className="col-md-8">
-                <h2>Preparation</h2>
+                <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Preparation</h1>
                 <Markdown source={data.procedure} />
               </div>
             </Content>
