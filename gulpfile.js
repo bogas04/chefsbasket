@@ -13,12 +13,10 @@ const webpackStream = require('webpack-stream');
 const autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('default', cb => runSequence(['dev-server', 'stylus-watch', 'react-es2015-dev']) );
-gulp.task('production', cb => runSequence(['server', 'bower', 'stylus', 'react-es2015']) );
+gulp.task('production', cb => runSequence(['server', 'knex' , 'bower', 'stylus', 'react-es2015']) );
 
-gulp.task('server', shell.task([
-  'node_modules/.bin/babel-node server',
-  'node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production migrate:latest',
-]));
+gulp.task('server', shell.task('node_modules/.bin/babel-node server'));
+gulp.task('knex', shell.task('node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production migrate:latest'));
 
 gulp.task('dev-server', cb => nodemon({
   script: 'server',
