@@ -2,7 +2,6 @@ import React from 'react';
 import { IndexRoute, Route, Router } from 'react-router';
 
 import App from './App';
-
 import Home from './App/Home';
 import Entertainment from './App/Entertainment';
 import People from './App/People';
@@ -33,11 +32,15 @@ import auth from './auth';
 
 function requireNotNormal(nextState, replaceState) {
   if (!auth.loggedIn() || JSON.parse(localStorage.user).type === 'normal')
-    replaceState({ nextPathname: nextState.location.pathname }, '/account')
+    replaceState({ nextPathname: nextState.location.pathname }, '/account');
+}
+function notRequireAuth(nextState, replaceState) {
+  if (auth.loggedIn())
+    replaceState({ nextPathname: nextState.location.pathname }, '/account');
 }
 function requireAuth(nextState, replaceState) {
   if (!auth.loggedIn())
-    replaceState({ nextPathname: nextState.location.pathname }, '/login')
+    replaceState({ nextPathname: nextState.location.pathname }, '/login');
 }
 module.exports = (
   <Router>
@@ -70,8 +73,8 @@ module.exports = (
       <Route path="people" component={People}>
         <Route path=":slug" component={Article}/>
       </Route>
-      <Route path="login" component={Login}/>
-      <Route path="logout" component={Logout}/>
+      <Route path="login" component={Login} onEnter={notRequireAuth}/>
+      <Route path="logout" component={Logout} onEnter={requireAuth}/>
       <Route path="signup" component={Signup}/>
       <Route path="*" component={NotFound} />
     </Route>

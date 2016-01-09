@@ -17,6 +17,7 @@ gulp.task('production', cb => runSequence(['server', 'knex' , 'bower', 'stylus',
 
 gulp.task('server', shell.task('node_modules/.bin/babel-node server'));
 gulp.task('knex', shell.task('node_modules/.bin/knex --knexfile=server/db/knexfile.js --env=production migrate:latest'));
+gulp.task('dev-knex', shell.task('node_modules/.bin/knex --knexfile=server/db/knexfile.js migrate:latest'));
 
 gulp.task('dev-server', cb => nodemon({
   script: 'server',

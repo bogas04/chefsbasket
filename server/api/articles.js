@@ -1,3 +1,4 @@
+import fs from 'fs';
 import express from 'express';
 import constants from '../../constants';
 
@@ -35,7 +36,25 @@ router.get('/', (req, res) => {
   });
 });
 
+router.delete('/:slug', (req, res) => {
+  let { slug } = req.params;
+  if (req.session.user && req.user.type === 'admin')  {
+    new Article({ slug }).destroy()
+    .then(e => {
+      fs.rm(`${constants.public.image.dir}${article.slug}`, (err) => {
+        // TODO: Fix it
+        console.log(e);
+        res.status(200).json({})
+      })
+    })
+  }
+});
+
 router.post('/', (req, res) => {
+  if (!req.session.user || req.session.user.type === 'normal')  {
+    return res.status(401).json({ msg: `Your user role is not permitted to do this action` });
+  }
+
   let article = req.body;
   let slug = article.slug;
 
@@ -64,8 +83,6 @@ router.post('/', (req, res) => {
       let d = new Date();
       article.slug += d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
     }
-
-    let fs = require('fs');
 
     // Upload image
     fs.writeFile(`${constants.public.image.dir}${article.slug}${d.ext}`, new Buffer(d.imageBody, 'base64'), err => {

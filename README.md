@@ -26,6 +26,10 @@ gulp production
 * [ ] Complete all APIs
   * [ ] Make API usable by an app
   * [x] Build up log-in system using passport
+* [ ] See if disqus can be used for comments, else implement them yourself.
+* [ ] Implement Tinder thingy for Would You Cook...
+* [ ] Sync the localStorage with session on server, it sould feel robust like those old PHP apps
+* [ ] Find out why session isn't maintained for logged in users.
 * [x] Use CardList for all cards (Trending/Related)
 * [x] Find a smarter way to store tags of articles (Postgresql arrays?)
 * [x] Refactor components to use snake case instead of deep JSON objects (eg: `header_title` instead of `header.title`)

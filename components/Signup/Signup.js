@@ -65,7 +65,10 @@ export default class Signup extends React.Component {
       body: JSON.stringify(this.state.data)
     })
     .then(e => e.json())
-    .then(e => console.log(e))
+    .then(e => {
+      alert('Account Created'); 
+      // TODO: Redirect to home
+    })
     .catch(e => console.log(e));
   }
   check(type, e) {

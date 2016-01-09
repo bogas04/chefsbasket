@@ -14,8 +14,8 @@ let data = {
   }),
 
   // M:N - Collection has many articles, an article can be in many collections
-  Collections: bookshelf.Model.extend({
-    tableName: 'collections',
+  Collection: bookshelf.Model.extend({
+    tableName: 'collections_articles',
     hasTimestamps: true,
     articles: function() { this.belongsToMany(data.Article) },
     user: function() { this.belongsTo(data.User) },

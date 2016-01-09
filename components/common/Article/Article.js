@@ -11,7 +11,7 @@ import NotFound from '../../NotFound';
 export default class Article extends React.Component {
   constructor(p) {
     super(p);
-    this.state = { data: this.props.default || <h1 className="text-center"> Loading ... </h1> };
+    this.state = { view: this.props.default || <h1 className="text-center"> Loading ... </h1>, data: {} };
     if(!this.props.loadStatic && ExEnv.canUseDOM) { // dynamic loading/client loading
       fetch(`/articles.json/${this.props.params.slug}`)
       .then(data => data.json())
@@ -23,7 +23,7 @@ export default class Article extends React.Component {
     if(this.props.loadStatic) { // static loading/server loading
       if(this.props.data) {
         this.setState({
-          data: this.fillIn(this.props.data.category || 'travel', this.props.data)
+          view: this.fillIn(this.props.data.category || 'travel', this.props.data)
         });
       }
     }
@@ -42,37 +42,45 @@ export default class Article extends React.Component {
               )
           }
         </Banner>
-        { 
-          layout === 'recipes' ? (
-            <Content>
-              <h2> {data.title} </h2>
-              <div className="col-md-4">
-                <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Ingredients</h1>
-                <Markdown source={data.ingredients} />
-                <h3> Tags </h3>
-                {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
-              </div>
-              <div className="col-md-8">
-                <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Preparation</h1>
-                <Markdown source={data.procedure} />
-              </div>
-            </Content>
-            ) : (
-            <Content>
-              <h2> {data.title} </h2>
-              <Markdown source={data.body} />
+        <Content>
+          <h2> {data.title} </h2>
+          { 
+            layout === 'recipes' ? (
               <div>
-                <h3> Tags </h3>
-                {Array.isArray(data.tags) && data.tags.map(e => <Tag to={e} key={e} />)}
+                <div className="col-md-4">
+                  <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Ingredients</h1>
+                  <Markdown source={data.ingredients} />
+                  <ArticleFooter article={data} />
+                </div>
+                <div className="col-md-8">
+                  <h1 style={{fontFamily: 'chardons', fontWeight: 100}}>Preparation</h1>
+                  <Markdown source={data.procedure} />
+                </div>
               </div>
-            </Content>
-            )
-        }
-        <CardList title="Related topics you might want to read" dataSource={`/articles.json?relatedTo=${this.props.params.slug}`} />
+              ) : (
+              <div>
+                <Markdown source={data.body} />
+                <ArticleFooter article={data} />
+              </div>
+              )
+          }
+        </Content>
+        <CardList title="Related topics you might want to read" dataSource={`/articles.json?relatedTo=${this.state.data.slug}`} />
       </div>
     );
   }
   render() {
-    return this.state.data;
+    return this.state.view;
   }
+}
+function ArticleFooter({ article }) {
+  return (
+    <div>
+      <div className="row">
+      </div>
+      <h3> Tags </h3>
+      {Array.isArray(article.tags) && article.tags.map(e => <Tag to={e} key={e} />)}
+    </div>
+  );
+
 }

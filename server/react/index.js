@@ -1,5 +1,5 @@
 import React from 'react';
-import routes from '../components/routes';
+import routes from '../../components/routes';
 import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 

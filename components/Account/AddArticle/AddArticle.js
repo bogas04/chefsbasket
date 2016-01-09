@@ -37,9 +37,10 @@ export default class AddArticle extends React.Component {
     }
 
     fetch('/articles.json', {
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       method: 'post',
       body: JSON.stringify(this.state.data)

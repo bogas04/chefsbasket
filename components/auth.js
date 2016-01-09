@@ -5,11 +5,12 @@ module.exports = {
         this.onChange(true);
       return;
     }
-    fetch('/login.json', {
+    fetch('/login', {
       method: 'post',
+      credentials: 'include',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, password })
     })
@@ -30,9 +31,12 @@ module.exports = {
   },
 
   logout(cb) {
-    delete localStorage.user;
-    if(cb) cb();
-    this.onChange(false);
+    fetch(`/logout`, { method: 'post' }).then(e => {
+      console.log(e); 
+      delete localStorage.user;
+      if(cb) cb();
+      this.onChange(false);
+    }).catch(console.log);
   },
 
   loggedIn() {

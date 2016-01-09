@@ -13,11 +13,13 @@ export default class AccountHome extends React.Component {
   render() {
     return (
       <Content>
-        <h3> Account </h3>
-        <p>User type - {this.state.user.type}</p>
-        <p>User name - {this.state.user.name}</p>
-        <p>User email  - {this.state.user.email}</p>
-        <p>User created_at - {this.state.user.created_at}</p>
+        <h3> Account <Link to={`/logout`} className="btn btn-default"> Logout </Link> </h3>
+        <div>
+          <p>User type - {this.state.user.type}</p>
+          <p>User name - {this.state.user.name}</p>
+          <p>User email  - {this.state.user.email}</p>
+          <p>User created_at - {this.state.user.created_at}</p>
+        </div>
       </Content>
     );
   }

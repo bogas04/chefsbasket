@@ -1,10 +1,7 @@
-'use strict';
-
-let constants = require('../../../constants');
+var constants = require('../../../constants');
 
 exports.down = (knex, Promise) => knex.schema
 .dropTable('collections_articles')
-.dropTable('collections')
 .dropTable('comments')
 .dropTable('users')
 .dropTable('articles');
@@ -31,6 +28,7 @@ exports.up = (knex, Promise) => knex.schema
   table.text('procedure');
   table.text('ingredients');
   table.integer('difficulty');
+  table.integer('preparation_time_in_minutes');
   table.integer('serves');
 
   // for others
@@ -52,17 +50,10 @@ exports.up = (knex, Promise) => knex.schema
   table.enum('type', constants.userTypes).defaultTo(constants.default.userType);
 })
 
-.createTable('collections', table => {
-  table.bigIncrements('id').primary().unsigned();
-
-  table.string('name', 50).defaultTo('like');
-
+.createTable('collections_articles', table => {
   table.biginteger('user_id').unsigned().references('id').inTable('users');
   table.timestamps();
-}) 
-
-.createTable('collections_articles', table => {
-  table.biginteger('collection_id').unsigned().references('id').inTable('collections');
+  table.string('name');
   table.biginteger('article_id').unsigned().references('id').inTable('articles');
 })
 

@@ -15,7 +15,6 @@ export default class App extends React.Component {
     this.setState({ loggedIn });
   }
   componentWillMount() {
-    // TODO: Figure out a way to let auth tell App
     if(ExEnv.canUseDOM) {
       auth.onChange = (p) => this.updateAuth(p);
     }
