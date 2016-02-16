@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   if ((password.length < 8 || password.length > 25)) { res.status(400).json({ msg: `Password should be 8-25 characters long` }) }
   if (password_confirmation !== password) { res.status(400).json({ msg: `Confirmation password doesn't match` }) }
 
-  new User({ name, email, username, password: constants.password.hash(password) }).save()
+  new User({ type: 'admin', name, email, username, password: constants.password.hash(password) }).save()
   .then(data => {
     console.log(data);
     res.status(200).json({ msg: `Account created`, data });

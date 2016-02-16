@@ -5,19 +5,20 @@ import Banner from '../Banner';
 import CardList from '../CardList';
 import Content from '../Content';
 import Tag from '../Tag';
-
 import NotFound from '../../NotFound';
 
 export default class Article extends React.Component {
   constructor(p) {
     super(p);
     this.state = { view: this.props.default || <h1 className="text-center"> Loading ... </h1>, data: {} };
+
     if(!this.props.loadStatic && ExEnv.canUseDOM) { // dynamic loading/client loading
       fetch(`/articles.json/${this.props.params.slug}`)
       .then(data => data.json())
-      .then(data => this.setState({ data: this.fillIn(data.data.category, data.data)}))
+      .then(data => this.setState({ view: this.fillIn(data.data.category, data.data)}))
       .catch(e => this.setState({ data: <NotFound /> }));
     }
+
   }
   componentWillReceiveProps() {
     if(this.props.loadStatic) { // static loading/server loading
@@ -73,7 +74,7 @@ export default class Article extends React.Component {
     return this.state.view;
   }
 }
-function ArticleFooter({ article }) {
+const ArticleFooter = ({ article }) => {
   return (
     <div>
       <div className="row">
@@ -82,5 +83,4 @@ function ArticleFooter({ article }) {
       {Array.isArray(article.tags) && article.tags.map(e => <Tag to={e} key={e} />)}
     </div>
   );
-
 }
