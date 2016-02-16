@@ -70,7 +70,7 @@ export default class AddArticle extends React.Component {
         case 'title':
           data.title = e.currentTarget.value;
           // replace space with -, remove the/a for better SEO, convert to lower case
-          data.slug = data.title.toLowerCase().replace(' ', '-', 'g').replace(/(^the |^a | a | the )/, '', 'g');
+          data.slug = data.title.toLowerCase().replace(/ /g, '-').replace(/(^the |^a | a | the )/g, '');
           break;
         default: 
           if(type.indexOf('.') > -1) {
