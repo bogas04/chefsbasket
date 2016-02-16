@@ -6,7 +6,6 @@ ncp-debug.log
 npm-debug.log
 *.swp
 */.DS_STORE
-client/public/img/*
 client/components
 client/components/*
 client/js/bundle.js
