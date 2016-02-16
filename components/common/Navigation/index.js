@@ -29,7 +29,7 @@ export default class Navigation extends React.Component {
 
             <div className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
-                {this.props.routes.map(e => <li key={e.url} style={{width: `${100/this.props.routes.length}%`}}><Link to={e.url}>{e.title}</Link></li>)}
+                {this.props.routes.map(e => <li key={e.url}><Link to={e.url}>{e.title}</Link></li>)}
               </ul>
             </div>
 
@@ -41,7 +41,7 @@ export default class Navigation extends React.Component {
   }
 }
 
-function UpperHeader ({ loggedIn, hideSearch }) {
+const UpperHeader = ({ loggedIn, hideSearch }) => {
   let search;
   let expand = (e, w) => {
     e.style.width = window.matchMedia('(min-width: 992px)').matches ? w : '';
